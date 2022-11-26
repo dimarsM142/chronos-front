@@ -1,0 +1,83 @@
+.all-users{
+    margin: 100px 30px;
+}
+
+.all-users .creating-user {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.all-users .no-users{
+    text-align: center;
+    color: green;
+    font-weight: 700;
+    font-size: 32px;
+    text-transform: uppercase;
+}
+
+
+.all-users .creating-user a{
+    color: white;
+    text-decoration: none;
+    background-color: green;
+    padding: 10px 25px;
+    font-size: 22px;
+    transition: 0.5s;
+}
+
+.all-users .creating-user a:hover{
+    background-color: rgb(23, 88, 3);
+}
+
+.all-users .creating-user a:active{
+    background-color: rgb(0, 150, 12);
+    color: #ffffff;
+    box-shadow: 0px 10px 15px rgb(112, 112, 112);
+}
+
+.all-users .user-container{
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.all-users .search-container{
+    max-width: 1000px;
+    margin: auto;
+    margin-bottom: 60px;
+}
+
+
+@media only screen and (min-width: 1300px) and (max-width: 1600px){
+    .all-users .user-container{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    
+}
+
+
+@media only screen and (min-width: 900px) and (max-width: 1300px){
+    .all-users .user-container{
+        grid-template-columns: 1fr 1fr;
+    }    
+}
+
+@media only screen and (max-width: 900px){
+    .all-users .user-container{
+        grid-template-columns: 1fr;
+    }    
+}
+
+@media only screen and (max-width: 420px){
+    .all-users .creating-user a{
+        padding: 10px 15px;
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width: 340px){
+    .all-users .creating-user a{
+        padding: 10px 5px;
+        font-size: 16px;
+    }
+}

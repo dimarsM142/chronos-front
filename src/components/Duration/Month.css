@@ -1,0 +1,235 @@
+
+.month-container .up-part-title {
+    border: 2px solid green;
+    border-radius: 10px;
+    font-size: 32px;
+    color: black;
+    margin: 0px 20px 10px 20px;
+    text-align: center;
+}
+
+.month-container .up-part {
+    display: flex;
+    justify-content: center;
+    font-size: 32px;
+}
+
+.month-container .up-part p{
+    margin: 0px 20px;
+    color: green;
+}
+
+.month-container .up-part i{
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.month-container .up-part i:hover{
+    color: green;
+}
+
+.month-container .select-container{
+    margin: 20px 0px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.month-container .center-container-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Comfortaa', cursive;
+    margin-top: 100px;
+    text-transform: uppercase;
+}
+
+.month-container .select-create{
+    width: 200px;
+    font-size: 16px;
+}
+
+.month-container .center-container{
+    display: flex;
+    width: 95%;
+    margin: auto;
+
+}
+
+.month-container .center-container .event-container button{
+    width: 200px;
+    margin-bottom: 40px;
+
+}
+
+.month-container .center-container .event-container{
+    margin-top: 140px;
+    width: 500px;
+    text-align: center;  
+    margin-left: 10px;
+}
+
+.month-container .center-container .event-container .no-events{
+    color: green;
+    font-size: 26px;
+    font-family: 'Comfortaa', cursive;
+}
+
+.month-container .one-calendar {
+    margin-top: 50px;
+    width: 100%;
+}
+
+.month-container .one-calendar table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.month-container .one-calendar table th{
+    font-size: 36px;
+    font-family: 'Comfortaa', cursive;
+    border-radius: 10px;
+    padding-bottom: 50px;
+}
+
+.month-container .one-calendar table td {
+    text-align: center;
+    padding: 10px 0vw 5vw 0vw;
+    border: 1px solid rgb(194, 194, 194);
+    font-size: 28px;
+    transition: 0.4s;
+} 
+
+.month-container .one-calendar table td i {
+    opacity: 0;
+} 
+
+.month-container .one-calendar table .event i {
+    opacity: 1;
+} 
+
+
+.month-container .one-calendar table .today{
+    border: 2px solid rgb(0, 95, 0);
+} 
+.month-container .one-calendar table .active{
+    background-color: green;
+    color: white;
+} 
+.month-container .one-calendar .fill-cell {
+    cursor: pointer;
+}
+.month-container .one-calendar .fill-cell:hover{
+   background-color: rgb(155, 206, 155);
+} 
+
+.loading-calendar{
+    margin-top: 100px;
+    margin-bottom: 150px;
+}
+
+
+.loading-calendar .fake-posts {
+    height: 350px;
+    width: 95%;
+    margin: auto;
+    border: 2px solid black;
+    border-radius: 3px;
+}
+
+.loading-calendar p {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.loading-calendar .loader-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+
+
+@media only screen and (min-width: 640px) and (max-width: 1200px){
+    
+    .month-container .one-calendar table th{
+        font-size: 24px;
+        padding-bottom: 30px;
+    }
+    .month-container .one-calendar table td {
+        padding: 10px 0vw 5vw 0vw;
+        font-size: 22px;
+    } 
+    .month-container .center-container{
+        display: block;
+    }
+    .month-container .center-container .event-container{
+        width: 100%;
+        margin-top: 40px;
+        margin-left: 0px;
+    }
+    
+}
+
+@media only screen and (min-width: 380px) and (max-width: 640px){
+    .month-container .select-container{
+        margin: 20px 0px;
+        display: grid;
+        row-gap: 20px;
+        justify-content:center;
+    }
+    .month-container .one-calendar table th{
+        font-size: 16px;
+        padding-bottom: 20px;
+    }
+    .month-container .one-calendar table td {
+        font-size: 16px;
+    } 
+    .month-container .center-container{
+        display: block;
+    }
+    .month-container .center-container .event-container{
+        width: 100%;
+        margin-top: 40px;
+        margin-left: 0px;
+    }
+    .month-container .center-container .event-container .no-events{
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 380px){
+    .month-container .select-container{
+        margin: 20px 0px;
+        display: grid;
+        row-gap: 20px;
+        justify-content:center;
+    }
+    .month-container .up-part {
+        display: flex;
+        justify-content: center;
+        font-size: 24px;
+    }
+    
+    
+    .month-container .one-calendar table th{
+        font-size: 14px;
+        padding-bottom: 20px;
+    }
+    .month-container .one-calendar table td {
+        font-size: 12px;
+    } 
+    .month-container .center-container{
+        display: block;
+    }
+    .month-container .center-container .event-container{
+        width: 100%;
+        margin-top: 40px;
+        margin-left: 0px;
+    }
+    .month-container .center-container .event-container .no-events{
+        font-size: 16px;
+    }
+}

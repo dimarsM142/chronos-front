@@ -1,0 +1,37 @@
+.inputClass {
+    background-color: rgb(255, 255, 255);
+    width: 300px;
+    height: 10px;
+    border: 1px solid rgb(199, 199, 199);
+    font-size: 14px;
+    font-weight: 600;
+    color: #555555;
+    padding: 10px 10px;
+    transition: 0.5s;
+    border-radius: 5px;
+    
+    
+}
+.inputClass::placeholder {
+    color: #000000;
+    font-weight: 700;
+    opacity: 0.4;
+}
+
+.inputClass:hover{
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.inputClass:focus{
+    background-color: rgb(231, 231, 231);
+    border: 2px solid green;
+    outline: none;
+}
+
+.password svg{
+    position: absolute;
+    margin-left: 285px;
+    margin-top: 0px;
+    color: green;
+    cursor: pointer;
+}

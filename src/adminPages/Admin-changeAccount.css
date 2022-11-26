@@ -1,0 +1,350 @@
+.user{
+    margin-top: 120px;
+    display: grid;
+    width: 400px;
+    background-color: white;
+    row-gap: 5px;
+    box-shadow: 0px 5px 5px rgb(112, 112, 112);
+    border-radius: 20px;
+    margin: 120px auto 100px auto;
+}
+
+.user > .header{
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    background-color: rgb(0, 161, 0);
+    text-align: center;
+    padding: 40px 0px;
+    font-size: 32px;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.user .user-title {
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user > .user-data{
+    display: grid;
+    row-gap: 10px;
+}
+
+.user .user-name {
+    margin-left: 40px;
+}
+
+.user > .user-data input{
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.user > .user-data button{
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.user .error{
+    color: rgb(197, 0, 0);
+    text-align: center;
+    opacity: 0;
+    animation-duration: 2s;
+    animation-name: errorAnimation;
+    width: 300px;
+    margin: auto;
+    padding: 20px 0px;
+    margin-bottom: 40px;
+}
+
+.user .result-text{
+    text-align: center; 
+    margin: 50px 20px 100px 25px;
+}
+
+.user .main-text {
+    font-family: 'Comfortaa', cursive;
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 25px;
+    color: green;
+    text-transform: uppercase;
+}
+
+.user .second-text {
+    font-size: 18px;
+}
+
+@keyframes errorAnimation {
+    from {
+        opacity: 1;
+    }
+  
+    to {
+        opacity: 0.4;
+    }
+}
+
+.user .user-photo {
+    display: grid;
+    grid-template-areas: 
+    'ava upload'
+    'ava submit';
+    margin: 20px 20px 130px 20px;
+} 
+
+.user .user-photo .ava-current {
+    grid-area: ava;
+    width: 130px;
+    height: 130px;
+    margin-right: 10px;
+
+}
+
+.user .user-photo .input-container {
+    grid-area: upload;
+    margin: 0px 0px 35px 0px;   
+}
+   
+
+.user .user-photo .input-file {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.user .user-photo .input-file-desc {
+    width: 220px;
+    height: 40px;
+    background: green;
+    color: #fff;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.user .user-photo .input-file-desc:hover {
+    background-color: rgb(23, 88, 3);
+}
+
+.user .user-photo .input-file-desc:active {
+    background-color: rgb(0, 150, 12);
+    color: white;
+    box-shadow: 10px 15px 15px rgb(112, 112, 112);
+}
+   
+.user .user-photo .input-file-icon {
+    height: 40px;
+    width: 40px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #fff;
+    font-size: 26px;
+}
+   
+.user .user-photo .input-file-text {
+    margin-top: 1px;
+}
+   
+.user .user-photo > button {
+    width: 220px;
+    grid-area: submit;
+}
+
+.user .user-posts-favourite{
+    margin-right: 50px;
+    margin-top: 30px;
+    text-align: right;
+}
+
+.user .user-posts-favourite a{
+    color: white;
+    text-decoration: none;
+    background-color: green;
+    padding: 5px 20px;
+    font-size: 20px;
+    transition: 0.5s;
+}
+
+.user .user-posts-favourite a:hover{
+    background-color: rgb(23, 88, 3);
+}
+
+.user .user-posts-favourite a:active{
+    background-color: rgb(0, 150, 12);
+    color: #ffffff;
+    box-shadow: 0px 10px 15px rgb(112, 112, 112);
+}
+
+.user > .loading-text {
+    color: rgb(0, 0, 0);
+    padding: 20px 20px;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.user > .loader{
+    margin: auto;
+    margin-bottom: 40px;   
+}
+ 
+
+.user > .deleting-text {
+    color: rgb(0, 0, 0);
+    padding: 20px 0px;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.user .select-create{
+    width: 330px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+
+
+@media only screen and (min-width: 340px) and (max-width: 410px){
+    .user{
+        width: 320px;
+    }
+    
+    .user > .header{
+        font-size: 22px;
+    }
+    
+    .user .user-title {
+        font-size: 20px;
+    }
+    
+    .user .user-photo {
+        grid-template-areas: 
+        'ava'
+        'upload'
+        'submit';
+        margin: 20px 20px 50px 20px;
+        justify-content: center;
+        row-gap: 10px;
+    } 
+    
+    .user > .user-data input{
+        width: 150px;
+        margin: auto;
+    }
+
+    .user > .user-data input:focus{
+        width: 190px;
+    }
+    .user > .user-data button{
+        width: 270px;
+        margin-top: 40px;
+    }
+    
+    .user .user-name {
+        margin-left: 40px;
+    }
+    .user .user-photo .ava-current {
+
+        margin: auto;
+        margin-bottom: 30px;
+    }
+    .user .select-create{
+        width: 230px;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and (max-width: 340px){
+    
+    .user .user-posts-favourite {
+        text-align: center;
+        margin-right: 0px;
+    }
+
+    .user .admin-link a{
+        padding: 10px 5px;
+        font-size: 18px;
+    }
+    .user{
+        width: 250px;
+    }
+    
+    .user > .header{
+        font-size: 20px;
+    }
+    
+    .user .user-title {
+        font-size: 20px;
+    }
+    
+    .user .user-photo {
+        grid-template-areas: 
+        'ava'
+        'upload'
+        'submit';
+        margin: 20px 20px 50px 20px;
+        justify-content: center;
+        row-gap: 10px;
+    } 
+    
+    .user > .user-data input{
+        width: 120px;
+        margin: auto;
+    }
+
+    .user > .user-data input:focus{
+        width: 140px;
+    }
+    .user > .user-data button{
+        width: 120px;
+        margin-top: 40px;
+    }
+    
+    
+    .user .delete-button-container {
+        margin: 120px auto 50px auto;
+    }
+
+    .user .delete-button-container button {
+        width: 120px;
+        
+    }
+    .user .user-name {
+        margin-left: 40px;
+    }
+    .user .user-photo .ava-current {
+        width: 100px;
+        height: 100px;
+        margin: auto;
+        margin-bottom: 30px;
+    }
+
+    .user .user-photo > button {
+        width: 200px;
+    }
+
+    .user .user-photo .input-file-desc {
+        width: 200px;
+    }
+    .user .select-create{
+        width: 180px;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+}
+
+  

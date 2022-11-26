@@ -1,0 +1,138 @@
+.up-nav {
+    background-color: green;
+    padding: 20px 0px;
+    position: fixed;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+}
+
+.up-nav ul{
+    
+    padding: 0;
+    margin-left: 100px;
+}
+
+.up-nav li{
+    padding: 0;
+    margin: 0;
+    display: inline;
+    list-style: none;
+    text-transform: uppercase;
+    background-color: green;
+}
+
+.up-nav ul a:hover{
+    background-color: white;
+    color: green;
+}
+.up-nav .logo{
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    height: 60px;
+    width: 60px;
+}
+.up-nav a {
+    text-decoration: none;
+    color: white;
+    padding: 20px 50px;
+    border-right: 1px solid rgb(134, 134, 134);
+    font-weight: 700;
+}
+
+.up-nav .rigth {
+    float: right;
+}
+
+.up-nav .account{
+    text-transform:none;
+}
+
+.up-nav .account p {
+    display: inline;
+    margin-right:20px;
+}
+.up-nav .account img {
+    border-radius:40px;
+    width: 50px;
+    height: 50px;
+    position: absolute; 
+    top:5px;
+    right:5px;
+}
+@media only screen and (min-width: 710px) and (max-width: 905px) {
+    .up-nav .account p {
+        display: none;
+    }
+    .up-nav .account a {
+        padding: 20px 30px;
+    }
+}
+
+@media only screen and (min-width: 380px) and (max-width: 710px) {
+    .up-nav .logo {
+        display: none;
+    }
+    .up-nav .account p {
+        display: none;
+    }
+    
+    .up-nav p {
+        display: none;
+    }
+    .up-nav a {
+        padding: 20px 20px;
+    }
+    .up-nav .account a {
+        padding: 20px 32.1px;
+    }
+    .up-nav ul{
+        margin-left: 0px;
+    }
+}
+
+@media only screen and (min-width: 315px) and (max-width: 380px) {
+    .up-nav .logo {
+        display: none;
+    }
+    .up-nav .account p {
+        display: none;
+    }
+    
+    .up-nav p {
+        display: none;
+    }
+    .up-nav a {
+        padding: 20px 10px;
+    }
+    .up-nav .account a {
+        padding: 20px 32.1px;
+    }
+    .up-nav ul{
+        margin-left: 0px;
+    }
+}
+
+@media only screen and (max-width: 315px) {
+    .up-nav .logo {
+        display: none;
+    }
+    .up-nav .account p {
+        display: none;
+    }
+    
+    .up-nav p {
+        display: none;
+    }
+    .up-nav a {
+        padding: 20px 0px;
+    }
+    .up-nav .account a {
+        padding: 20px 32.1px;
+    }
+    .up-nav ul{
+        margin-left: 0px;
+    }
+}

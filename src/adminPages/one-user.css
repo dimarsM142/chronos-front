@@ -1,0 +1,108 @@
+.one-user{
+    border: 1px solid rgb(179, 179, 179);
+    display: grid;
+    row-gap: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.one-user:hover {
+    background-color: rgb(223, 223, 223);
+}
+
+
+.one-user .ava {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.one-user .ava img {
+    width: 160px;
+    height: 160px;
+    border-radius: 80px;
+}
+
+.one-user .id-container{
+    display: flex;
+    column-gap: 5px;
+}
+
+.one-user .title-id{
+    font-size: 18px;
+    color: rgb(133, 133, 133);
+}
+
+.one-user .content-id{
+    margin-top: 2px;
+    color: green;
+    font-size: 20px;
+    font-style: italic;
+    font-family: 'Comfortaa', cursive;
+}
+
+.one-user .container{
+    text-align: center;
+}
+
+.one-user .title{
+    font-size: 18px;
+    color: rgb(133, 133, 133);
+}
+
+.one-user .content{
+    margin-top: 2px;
+    color: green;
+    font-size: 20px;
+    font-style: italic;
+    font-family: 'Comfortaa', cursive;
+}
+
+
+.one-user .user-rating {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.one-user .user-rating img {
+    width: 46px;
+    height: 46px;
+}
+
+.one-user .user-rating p {
+   font-size: 28px;
+   padding-top: 5px;
+   padding-left: 5px;
+   color: rgb(104, 170, 104);
+   font-style: italic;
+}
+
+@media screen and (min-width: 400px)and (max-width: 500px){
+    .one-user .ava img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+    }
+    .one-user .title{
+        font-size: 14px;
+    }
+
+    .one-user .content{
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width: 400px){
+    .one-user .ava img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50px;
+    }
+    .one-user .title{
+        font-size: 14px;
+    }
+
+    .one-user .content{
+        font-size: 14px;
+    }
+}

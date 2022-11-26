@@ -1,0 +1,84 @@
+.calendar-container{
+    margin-top: 70px;
+    margin-bottom: 100px;
+    transition: 0.5s;
+}
+.calendar-container .up-button{
+    margin: 0px 15px 50px 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.calendar-container .up-button button {
+    width: 250px;
+}
+
+.calendar-container .up-button .select-create-user {
+    width: 200px;
+}
+
+.calendar-container .search-container {
+    width: 320px;
+}
+
+.calendar-container .up-event-container {
+    margin: 20px 20px;
+    border: 1px solid rgb(194, 194, 194);
+    border-radius: 10px;
+    
+}
+
+.calendar-container .up-event-container .events {
+    margin: 0px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+}
+
+.calendar-container .up-event-container .delete {
+    font-size: 28px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.calendar-container .up-event-container .delete i{
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.calendar-container .up-event-container .delete i:hover{
+    color: red;
+}
+
+.calendar-container .up-event-container .events-title {
+    text-align: center;
+    font-size: 28px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.calendar-container .up-event-container .no-events-text {
+    text-align: center;
+    font-size: 32px;
+    opacity: 0.5;
+    margin-bottom: 40px;
+}
+@media only screen and (max-width: 900px) {
+    .calendar-container .up-button{
+        margin: 0px 15px 50px 15px;
+        display: grid;
+        justify-content: center;
+    }
+    .calendar-container .up-button .select-create-user {
+        margin: auto;
+        margin-bottom: 20px;
+    }
+    .calendar-container .up-button button {
+        margin: auto;
+    }
+    .calendar-container .search-container {
+        width: 270px;
+    }
+    .calendar-container .up-event-container .events {
+        grid-template-columns: 1fr;
+    }
+}

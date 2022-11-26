@@ -1,0 +1,134 @@
+
+.modal-window-calendar-create form {
+    text-align: center;
+}
+
+.modal-window-calendar-create input {
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+
+.modal-window-calendar-create form p {
+    text-align: left;
+    margin-left: 90px;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+.modal-window-calendar-create form .title-desc {
+    margin-left: 10px;
+}
+.modal-window-calendar-create form textarea {
+    padding: 10px 20px;
+    border-radius: 5px;
+    width: 90%;
+    height: 200px;
+    font-size: 18px;
+    color: rgb(82, 82, 82);
+    resize: none;
+    border: 2px solid rgb(179, 179, 179);
+    transition: 0.5s;
+    margin-bottom: 20px; 
+}
+
+.modal-window-calendar-create form textarea::placeholder {
+    color: rgb(82, 82, 82);
+    opacity: 0.3;
+}
+
+.modal-window-calendar-create form textarea:focus {
+    outline: 0;
+    background-color: rgb(223, 223, 223);
+    border-left: 3px solid green;
+}
+
+.modal-window-calendar-create form .title-select{
+    margin-left: 100px;
+}
+
+.modal-window-calendar-create .error{
+    color: rgb(197, 0, 0);
+    text-align: center;
+    opacity: 0;
+    animation-duration: 2s;
+    animation-name: errorAnimation;
+    width: 300px;
+    margin: auto;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+ 
+@keyframes errorAnimation {
+    from {
+        opacity: 1;
+    }
+  
+    to {
+        opacity: 0.4;
+    }
+}
+
+
+.modal-window-calendar-create form button {
+    margin-top: 25px;
+}
+
+
+@media only screen and (min-width:460px) and (max-width: 580px){
+
+    .modal-window-calendar-create .input-container {
+        margin-left: 63px;
+        margin-right: 63px;
+    }
+       
+    .modal-window-calendar-create form p {
+        margin-left: 50px;
+    }   
+    
+}
+
+@media only screen and (min-width:340px) and (max-width: 460px){
+    .modal-window-calendar-create > p{
+        font-size: 20px;
+        margin-bottom: 2px;
+    }
+    .modal-window-calendar-create input {
+        width: 220px;
+    }
+    .modal-window-calendar-create form p {
+        margin-left: 10px;
+    }
+    .modal-window-calendar-create form textarea {
+        width: 80%;
+        height: 150px;
+    }
+    .modal-window-calendar-create form button {
+        width: 220px;
+    }
+
+    
+}
+
+@media only screen and (max-width: 340px){  
+
+
+    .modal-window-calendar-create > p{
+        font-size: 18px;
+    }
+    .modal-window-calendar-create input {
+        width: 120px;
+    }
+    .modal-window-calendar-create form p {
+        margin-left: 10px;
+    }
+    .modal-window-calendar-create form textarea {
+        width: 90%;
+        height: 100px;
+        margin-left: -15px;
+    }
+    .modal-window-calendar-create form button {
+        width: 120px;
+    }
+}

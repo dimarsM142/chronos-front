@@ -1,0 +1,116 @@
+.one-calendar-small, .one-calendar-small-subscribed{
+    border: 1px solid rgb(170, 170, 170);
+    transition: 0.5s;
+    cursor: pointer;
+    display: grid;
+}
+.one-calendar-small:hover, .one-calendar-small-subscribed:hover{
+    background-color: rgb(214, 214, 214);
+}
+
+.one-calendar-small i, .one-calendar-small-subscribed i{
+    font-size: 28px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.one-calendar-small {
+    grid-template-areas: 
+    'up-part'
+    'users';
+    align-content: space-between;
+}
+
+.one-calendar-small .up-part {
+    grid-area:  up-part;
+    display: grid;
+    grid-template-areas: 
+    'title change'
+    'description description';
+}
+
+.one-calendar-small-subscribed {
+    grid-template-areas: 
+    'title delete'
+    'description description';
+}
+
+
+.one-calendar-small .up-part .title, .one-calendar-small-subscribed .title{
+    align-items:baseline;
+    grid-area: title;
+    font-size: 20px;
+    font-family: 'Comfortaa', cursive;
+    margin-top: 10px;
+    margin-left: 5px; 
+}
+
+.one-calendar-small .up-part .description, .one-calendar-small-subscribed .description{
+    margin: 10px 15px;
+    font-size: 16px;
+    grid-area: description;  
+    align-content: start;
+    opacity: 0.6;
+}
+
+.one-calendar-small-subscribed .delete{
+    grid-area: delete;  
+    text-align: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.one-calendar-small-subscribed .delete i:hover {
+    color: rgb(190, 0, 0);
+}
+
+
+.one-calendar-small .up-part .change {
+    grid-area: change;
+    text-align: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.one-calendar-small .up-part .change i:first-child{
+    margin-right: 15px;
+}
+.one-calendar-small .up-part .change i:first-child:hover {
+    color: green;
+}
+
+.one-calendar-small .up-part .change i:last-child:hover {
+    color: rgb(190, 0, 0);
+}
+
+.one-calendar-small .users {
+    
+    grid-area: users;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.one-calendar-small .users i:first-child {
+    margin-right: 30px;
+}
+
+.one-calendar-small .users i:hover {
+    color: green;
+}
+
+@media screen and (max-width: 420px) {
+    .one-calendar-small .up-part {
+        grid-template-areas: 
+        'change'
+        'title'
+        'description';
+    }
+    
+    .one-calendar-small-subscribed {
+        grid-template-areas: 
+        'delete'
+        'title'
+        'description';
+    }
+}

@@ -1,0 +1,228 @@
+.event-container {
+    margin-top: 80px;
+}
+
+.event-container .one-event-small {
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-areas: 
+    'type type time'
+    'title title title'
+    'description description description'
+    'duration duration duration'
+    'change change change';
+    margin: 0px 40px;
+}
+
+.event-container .one-type-arrangement {
+    border: 3px solid rgb(79, 79, 160);
+    color: rgb(79, 79, 160);
+
+}
+
+.event-container .one-type-task {
+    border: 3px solid rgb(76, 165, 110);
+    color: rgb(76, 165, 110);
+}
+
+.event-container .one-type-reminder {
+    border: 3px solid rgb(139, 48, 132);
+    color: rgb(139, 48, 132);
+    
+}
+
+
+.event-container .one-event-small .title {
+    grid-area: title;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    font-family: 'Comfortaa', cursive;
+}
+
+.event-container .one-event-small .description {
+    margin: 20px 10px 20px 25px;
+    grid-area: description;
+    text-align: left;
+    padding: 0px 10px;
+    font-size: 24px;
+    opacity: 0.7;
+    color: black;
+}
+
+.event-container .one-event-small .type {
+    grid-area: type;
+    text-align: left;
+    margin: 10px;
+    margin-bottom: 30px;
+    font-size: 38px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.event-container .one-event-small .time {
+    color: rgb(0, 0, 0);
+    grid-area: time;
+    justify-content: right;
+    font-size: 20px;
+    opacity: 0.5;
+    margin: 10px;
+    display: flex;    
+}
+
+.event-container .one-event-small .duration {
+    margin: 0px;
+    padding: 0px;
+    opacity: 0.5;
+    grid-area: duration;
+    text-align: right;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    font-size: 26px;   
+}
+
+.event-container .one-event-small .time .time-time {
+    display: flex;
+    margin-right: 5px;
+}
+
+.event-container .one-event-small .time .time-date {
+    display: flex;
+}
+
+
+.event-container .one-event-small .time .day{
+    margin-right: 5px;
+}
+
+
+.event-container .one-event-small .change {
+    grid-area: change;
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+}
+
+.event-container .one-event-small .change > div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.event-container .one-event-small .change button {
+    width: 250px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    border: none;
+    transition: 0.5s;
+    cursor: pointer;   
+}
+
+.event-container .one-event-small .change .delete button {
+    background-color: rgb(201, 19, 19);
+}
+
+.event-container .one-event-small .change .edit button {
+    background-color: green;
+}
+
+.event-container .one-event-small .change .delete button:hover{
+    background-color: rgb(88, 3, 3);
+
+}
+
+.event-container .one-event-small .change .edit button:hover{
+    background-color: rgb(30, 150, 0);
+}
+
+
+.event-container .one-event-small .change .delete button:active{
+    background-color: rgb(201, 19, 19);
+    color: #ffffff;
+    box-shadow: 0px 10px 15px rgb(112, 112, 112);
+}
+
+.event-container .one-event-small .change .edit button:active{
+    background-color: rgb(19, 94, 0);
+    color: #ffffff;
+    box-shadow: 0px 10px 15px rgb(112, 112, 112);
+}
+
+
+
+@media screen and (min-width: 460px) and (max-width: 620px){
+    .event-container .one-event-small {
+        grid-template-areas: 
+        'time time time'
+        'type type type'
+        'title title title'
+        'description description description'
+        'duration duration duration'
+        'change change change';        
+    }
+    .event-container .one-event-small .change > div {
+        display: grid;
+        justify-content: center;
+        row-gap: 20px;
+    }   
+    .event-container .one-event-small .title {
+        font-size: 26px;
+    }
+
+    .event-container .one-event-small .description {
+        font-size: 16px;
+    }
+
+    .event-container .one-event-small .type {
+        font-size: 32px;
+    }
+
+    .event-container .one-event-small .time {
+        font-size: 16px;   
+    }
+
+    .event-container .one-event-small .duration {
+        font-size: 20px;   
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .event-container .one-event-small {
+        grid-template-areas: 
+        'time time time'
+        'type type type'
+        'title title title'
+        'description description description'
+        'duration duration duration'
+        'change change change';        
+    }
+    .event-container .one-event-small .change > div {
+        display: grid;
+        justify-content: center;
+        row-gap: 20px;
+    } 
+    .event-container .one-event-small .title {
+        font-size: 22px;
+    }
+    .event-container .one-event-small .description {
+        font-size: 16px;
+        margin-left: 0px;
+        margin-right: 5px;
+    }
+    .event-container .one-event-small .type {
+        font-size: 28px;
+    }
+    .event-container .one-event-small .time {
+        font-size: 16px;   
+    }
+    .event-container .one-event-small .duration {
+        font-size: 18px;   
+    }
+    .event-container .one-event-small .change button {
+        width: 200px;
+        font-size: 16px;
+    }
+}

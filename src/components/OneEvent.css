@@ -1,0 +1,157 @@
+.one-event {
+    border-radius: 5px;
+    margin-bottom: 20px;
+    
+
+    display: grid;
+    grid-template-areas: 
+    'title title change'
+    'type type type'
+    'duration duration duration'
+    'time time time';
+    
+}
+
+.type-arrangement {
+    background-color: rgb(79, 79, 160);
+    color: rgb(235, 235, 235);
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.type-arrangement:hover {
+    background-color: rgb(115, 0, 182);
+    color: white;
+}
+
+.type-task {
+    background-color: rgb(76, 165, 110);
+    color: rgb(255, 255, 255);
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.type-task:hover {
+    background-color: rgb(14, 122, 0);
+}
+
+.type-reminder {
+    background-color: rgb(139, 48, 132);
+    color: rgb(236, 236, 236);
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.type-reminder:hover {
+    background-color: rgb(103, 0, 134);
+    color: white;
+}
+
+.type-holiday {
+    background-color: rgb(0, 179, 192);
+    color: white;
+}
+
+.one-event .title {
+    grid-area: title;
+    text-align: left;
+    text-transform: uppercase;
+    margin-left: 15px;
+    margin-top: 15px;
+    font-size: 22px;
+    margin-right: 10px;
+    font-family: 'Comfortaa', cursive;
+}
+
+.one-event .type {
+    grid-area: type;
+    text-align: right;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    font-size: 22px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Comfortaa', cursive;
+    opacity: 0.8;
+}
+
+.one-event .time {
+    color: rgba(255,255,255, 0.7);
+    grid-area: time;
+    text-align: left;
+    margin-left: 5px;
+    display: flex;
+    font-size: 18px;
+    margin-bottom: 10px;
+    
+}
+
+.one-event .duration {
+    margin: 0px;
+    padding: 0px;
+    color: rgb(255, 255, 255);
+    grid-area: duration;
+    text-align: center;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    font-size: 24px;   
+}
+
+.one-event .duration p {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.one-event .change {
+    grid-area: change;
+    text-align: right;
+}
+
+.one-event .change i{
+    margin-top: 5px;
+    color: white;
+    font-size: 32px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.one-event .change i:first-child:hover{
+    color: green;
+}   
+
+.one-event .change i:last-child:hover{
+    color: red;
+}   
+
+.one-event .change i:first-child{
+    margin-right: 20px;
+}
+
+.one-event .change i:last-child{
+    margin-right: 5px;
+}
+
+.one-event .time .time-time {
+    display: flex;
+    margin-right: 5px;
+}
+
+.one-event .time .time-date {
+    display: flex;
+}
+
+
+.one-event .time .day{
+    margin-right: 5px;
+}
+
+@media screen and (max-width:400px){
+    .one-event .title {
+        text-transform:none;
+        margin-left: 5px;
+        font-size: 20px;
+    }
+    
+}

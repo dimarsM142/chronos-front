@@ -1,0 +1,192 @@
+.registerForm {
+    display: grid;
+    row-gap: 5px;
+    box-shadow: 0px 5px 5px rgb(112, 112, 112);
+    border-radius: 20px;
+    width: 400px;
+    margin: 120px auto 100px auto;
+    padding: 0;
+    background-color: white;
+}
+
+.registerForm > .header{
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    background-color: rgb(0, 161, 0);
+    text-align: center;
+    padding: 40px 0px;
+    font-size: 32px;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.registerForm input {
+    width: 300px;
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+.registerForm > .password {
+    margin: auto;
+}
+
+
+.registerForm > button {
+    width: 340px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.registerForm > .lastPartName {
+    margin-top: 30px;
+    text-align: center;
+    opacity: 0.4;
+    font-size: 16px;
+}
+
+.registerForm > .lastPart {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.registerForm > .lastPart a{
+    color: green;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.registerForm .nameInput {
+
+    padding: 0;
+    margin: 0;
+    margin-left: 35px;
+    font-size: 18px;
+    color: black;
+}
+
+.registerForm > .error{
+    color: rgb(197, 0, 0);
+    text-align: center;
+    opacity: 0;
+    animation-duration: 2s;
+    animation-name: errorAnimation;
+    width: 300px;
+    margin: auto;
+    padding: 20px 0px;
+}
+
+
+@keyframes errorAnimation {
+    from {
+        opacity: 1;
+    }
+  
+    to {
+        opacity: 0;
+    }
+}
+
+.registerForm > .result-text{
+    text-align: center; 
+    margin: 50px 20px 100px 25px;
+}
+
+.registerForm .main-text {
+    font-family: 'Comfortaa', cursive;
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 25px;
+    color: green;
+    text-transform: uppercase;
+}
+
+.registerForm .second-text {
+    font-size: 18px;
+}
+
+
+.registerForm > .loading-text {
+    color: rgb(0, 0, 0);
+    padding: 20px 20px;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.registerForm > .loader{
+    margin: auto;
+    margin-bottom: 40px;   
+}
+ 
+
+
+
+
+
+@media only screen and (min-width: 340px) and (max-width: 410px){
+    .registerForm {
+        width: 300px;
+    }
+    
+    .registerForm > .header{
+        font-size: 28px;
+    }
+    
+    .registerForm input {
+        width: 150px;
+    }
+    .registerForm input:focus {
+        width: 200px;
+    }
+    .registerForm > button {
+        width: 180px;
+        margin: auto;
+        margin-top: 40px;
+    }
+    .registerForm .nameInput {
+        margin-left: 55px;
+    }
+    .registerForm .password svg{
+        margin-left: 170px;
+    }
+    .registerForm > .error{
+        width: 250px;
+    }
+}
+
+@media only screen and (max-width: 340px){
+    .registerForm {
+        width: 200px;
+    }
+    
+    .registerForm > .header{
+        font-size: 24px;
+    }
+    
+    .registerForm input {
+        width: 100px;
+    }
+    .registerForm input:focus {
+        width: 120px;
+    }
+    .registerForm > button {
+        width: 180px;
+        margin: auto;
+        margin-top: 40px;
+    }
+    .registerForm .nameInput {
+        margin-left: 35px;
+    }
+    .registerForm .password svg{
+        margin-left: 120px;
+    }
+    .registerForm > .error{
+        width: 200px;
+    }
+}
+
+  

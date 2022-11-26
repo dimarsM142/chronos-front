@@ -1,0 +1,51 @@
+
+.year-container .one-calendar {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.year-container .one-calendar table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto;
+    margin-bottom: 40px;
+}
+
+.year-container .one-calendar table th{
+    font-size: 16px;
+    font-family: 'Comfortaa', cursive;
+    border-radius: 10px;
+    padding-bottom: 20px;
+}
+
+.year-container .one-calendar table td {
+    text-align: center;
+    padding: 5px;
+    padding: 5px 15px;
+    border: 1px solid rgb(194, 194, 194);
+    font-size: 18px;
+    transition: 0.4s;
+} 
+
+.year-container .one-calendar table .today{
+    border: 2px solid rgb(0, 95, 0);
+} 
+
+.year-container .one-calendar table .active{
+    background-color: green;
+    color: white;
+} 
+
+.year-container .one-calendar .fill-cell {
+    cursor: pointer;
+}
+
+.year-container .one-calendar .fill-cell:hover{
+   background-color: rgb(155, 206, 155);
+} 
+
+.year-container .calendar-title {
+    text-align: center;
+    font-family: 'Comfortaa', cursive;
+    font-size: 24px;
+}
