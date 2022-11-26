@@ -325,7 +325,7 @@ export default class PostService {
             method: 'GET',
             headers: {  'Content-Type': 'application/json',
                         'Accept': 'aplication/json' },
-            url: `http://ip-api.com/json/`
+            url: `https://ip-api.com/json/`
         };
         return axios(options)
                     .then(response => {
