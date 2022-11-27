@@ -319,17 +319,16 @@ export default class PostService {
         return response;
     }
 
-
     static async getCountryInfoFromIpApi() {
         const options = {
             method: 'GET',
             headers: {  'Content-Type': 'application/json',
                         'Accept': 'aplication/json' },
-            url: `http://ip-api.com/json/`
+            url: `https://get.geojs.io/v1/ip/geo.json`
         };
         return axios(options)
                     .then(response => {
-                        let countryCode = response.data.countryCode.toLowerCase();
+                        let countryCode = response.data.country_code.toLowerCase();
                         switch(countryCode) {
                             case 'au': countryCode = 'australian'; break;
                             case 'at': countryCode = 'austrian'; break;
