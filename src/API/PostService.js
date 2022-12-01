@@ -172,6 +172,7 @@ export default class PostService {
         
         return response;
     }
+    
     static async createCalendar(token, title, desc){
         const response = await axios.post(
             `https://chron0s-backend.herokuapp.com/api/calendars`,
@@ -197,24 +198,24 @@ export default class PostService {
     }
 
 
-    static async getEventsByMonth(token, calendarID, year, month){
+    static async getEventsByMonth(token, calendarID, year, month, category){
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events?month=${year}-${month}`,
+            `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events?month=${year}-${month}&category=${category}&utc=${(new Date().getTimezoneOffset() / 60)}`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
     }
-    static async getEventsByWeek(token, calendarID, year, month, day){
-        console.log(`${year}-${month}-${day}`);
+    static async getEventsByWeek(token, calendarID, year, month, day, category){
+
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events?week=${year}-${month}-${day}`,
+            `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events?week=${year}-${month}-${day}&category=${category}&utc=${(new Date().getTimezoneOffset() / 60)}`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
     }
-    static async getEventsByName(token, calendarID, text){
+    static async getEventsByName(token, calendarID, text, category){
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events?search=${text}`,
+            `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events?search=${text}&category=${category}`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
@@ -226,12 +227,26 @@ export default class PostService {
         
         return response;
     }
-    static async createEvent(token, calendarID, title, description, date, type, duration){
+    static async getEventAuthor(token, eventID){
+        const response = await axios.get(
+            `https://chron0s-backend.herokuapp.com/api/events/${eventID}/author`,
+            {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
+        
+        return response;
+    }
+    static async createEvent(token, calendarID, title, description, date, type, duration, category, subscribers){
 
         if(type === 'arrangement'){
             const response = await axios.post(
                 `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events`,
-                {title: title, description: description, executionDate: date, type: type, duration: +duration * 3600, utc: -1 * (new Date().getTimezoneOffset() / 60)},
+                {   title: title, 
+                    description: description, 
+                    executionDate: date, 
+                    type: type, 
+                    category: category,
+                    duration: +duration * 3600, utc: -1 * (new Date().getTimezoneOffset() / 60),
+                    subscribers: subscribers
+                },
                 {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}}
             );
             return response;
@@ -239,26 +254,47 @@ export default class PostService {
         else{
             const response = await axios.post(
                 `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events`,
-                {title: title, description: description, executionDate: date, type: type, utc: -1 * (new Date().getTimezoneOffset() / 60)},
+                {
+                    title: title, 
+                    description: description, 
+                    executionDate: date, 
+                    type: type, utc: -1 * (new Date().getTimezoneOffset() / 60),
+                    category: category
+                },
                 {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}}
             );
             return response;
         }
         
     }
-    static async changeEvent(token, calendarID, eventID, title, description, date, type, duration){
+    static async changeEvent(token, calendarID, eventID, title, description, date, type, duration, category, subscribers){
 
         if(type === 'arrangement'){
             const response = await axios.patch(
                 `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events/${eventID}`,
-                {title: title, description: description, executionDate: date, type: type, duration: +duration * 3600, utc: -1 * (new Date().getTimezoneOffset() / 60)},
+                {
+                    title: title, 
+                    description: description, 
+                    executionDate: date, 
+                    type: type, 
+                    duration: +duration * 3600, utc: -1 * (new Date().getTimezoneOffset() / 60),
+                    category: category,
+                    subscribers: subscribers
+                },
                 {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});   
             return response;
         }
         else{
             const response = await axios.patch(
                 `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events/${eventID}`,
-                {title: title, description: description, executionDate: date, type: type, utc: -1 * (new Date().getTimezoneOffset() / 60)},
+                {
+                    title: title, 
+                    description: description, 
+                    executionDate: date, 
+                    type: type, 
+                    utc: -1 * (new Date().getTimezoneOffset() / 60),
+                    category: category
+                },
                 {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});  
             return response;
         }
@@ -278,6 +314,22 @@ export default class PostService {
 
         const response = await axios.get(
             `https://chron0s-backend.herokuapp.com/api/calendars/${id}/subscribe`,
+            {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
+        
+        return response;
+    }
+    static async getAllUsersToCalendar(token, id){
+
+        const response = await axios.get(
+            `https://chron0s-backend.herokuapp.com/api/calendars/${id}/allUsers`,
+            {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
+        
+        return response;
+    }
+    static async getAllUsersInvitedToEvent(token, calendarID, eventID){
+
+        const response = await axios.get(
+            `https://chron0s-backend.herokuapp.com/api/events/${calendarID}/events/${eventID}`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
@@ -372,10 +424,11 @@ export default class PostService {
                             case 'tw': countryCode = 'taiwan'; break;
                             case 'tl': countryCode = 'thai'; break;
                             case 'tr': countryCode = 'turkish'; break;
+                            case 'ru': countryCode = 'ukrainian'; break;
                             case 'ua': countryCode = 'ukrainian'; break;
                             case 'us': countryCode = 'usa'; break;
                             case 'vn': countryCode = 'vietnamese'; break;
-                            default: countryCode = 'ukrainian'; break;
+                            default:  break;
                         }
 
                         return {countryCode: countryCode, country: response.data.country};

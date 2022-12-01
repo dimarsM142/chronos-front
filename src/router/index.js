@@ -38,7 +38,7 @@ export const adminRoutes = [
 
 
 export const publicRoutes = [
-    {path:'/posts/login', element: Login},
+    {path:'/login', element: Login},
     {path:'/register', element: Register},
     {path:'/forgot-password', element: ForgotPassword},
     {path:'/forgot-password/:token', element: PasswordReset}

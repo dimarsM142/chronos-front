@@ -13,7 +13,18 @@ import Select from 'react-select';
 import MyLoader from "../UI/MyLoader2";
 import './Month.css';
 
-const arrOfMonth = [{value: 'Січень', label: 'Січень'}, {value: 'Лютий', label: 'Лютий'}, {value: 'Березень', label: 'Березень'}, {value: 'Квітень', label: 'Квітень'}, {value: 'Травень', label: 'Травень'}, {value: 'Червень', label: 'Червень'}, {value: 'Липень', label: 'Липень'}, {value: 'Серпень', label: 'Серпень'}, {value: 'Вересень', label: 'Вересень'}, {value: 'Жовтень', label: 'Жовтень'}, {value: 'Листопад', label: 'Листопад'}, {value: 'Грудень', label: 'Грудень'}];
+const arrOfMonth = [{value: 'January', label: 'January'}, 
+                    {value: 'February', label: 'February'}, 
+                    {value: 'March', label: 'March'}, 
+                    {value: 'April', label: 'April'}, 
+                    {value: 'May', label: 'May'}, 
+                    {value: 'June', label: 'June'},
+                    {value: 'July', label: 'July'}, 
+                    {value: 'August', label: 'August'}, 
+                    {value: 'September', label: 'September'}, 
+                    {value: 'October', label: 'October'}, 
+                    {value: 'November', label: 'November'}, 
+                    {value: 'December', label: 'December'}];
 const arrOfYear =  [];
 function monthFormated(date){
     let resArr = [undefined, undefined, undefined, undefined, undefined, undefined];
@@ -48,29 +59,31 @@ function monthFormated(date){
     return(resArr);
 }
 const Month = (props) => {
-    const weeks = ["Пнд", "Втр", "Срд", "Чтв", "Птн", "Сбт", "Ндл"];
+    const weeks = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     const router = useNavigate();
     const dispatch = useDispatch();
     const selectedDate = new Date(useSelector( (state) => state.cash.curDate));
     const activeDate = useSelector( (state) => state.cash.activeDate);
-    const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: ''});
-    
+    const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work'});
+    const [category, setCategory] = useState('all');
     const [month, SetMonth] = useState([undefined, undefined, undefined, undefined, undefined, undefined]);
     const [events, setEvents] = useState([]); 
     const [dateEvents, setDateEvents] = useState([]);
-
+    
     const [fetchEvents, isEventsLoading, eventsError] = useFetching(async () => {
         if(props.typeCalendar === 'ordinary') {
+
             const response = await PostService.getEventsByMonth(
                 localStorage.getItem('access'), 
                 +window.location.pathname.slice(window.location.pathname.indexOf('calendars/') + 10), 
                 selectedDate.getFullYear(), 
-                (selectedDate.getMonth() + 1).toString().length === 1 ? '0' + (selectedDate.getMonth() + 1): selectedDate.getMonth() + 1
+                (selectedDate.getMonth() + 1).toString().length === 1 ? '0' + (selectedDate.getMonth() + 1): selectedDate.getMonth() + 1,
+                category
             );
             let arr = [];
             let arrOfDates = [];
             for(let i = 0; i < response.data.length; i++){
-                arr[i] = {id: response.data[i].id, title: response.data[i].title, description: response.data[i].description, date: new Date(response.data[i].execution_date),  type: response.data[i].type,  duration:  Math.ceil((response.data[i].duration / 3600) * 100) / 100};
+                arr[i] = {id: response.data[i].id, title: response.data[i].title, description: response.data[i].description, date: new Date(response.data[i].execution_date),  type: response.data[i].type,  duration:  Math.ceil((response.data[i].duration / 3600) * 100) / 100, category: response.data[i].category, login: response.data[i].login};
                 arrOfDates[i] = arr[i].date.getDate();
             }
             setDateEvents(arrOfDates);
@@ -92,6 +105,7 @@ const Month = (props) => {
             setEvents(arr);
         }
     })
+
     const [fetchCreateEvent, isCreateEventLoading, createEventError] = useFetching(async () => {
         await PostService.createEvent(
             localStorage.getItem('access'), 
@@ -104,7 +118,9 @@ const Month = (props) => {
             dataInputed.hours.toString().length === 1 ? '0' + dataInputed.hours : dataInputed.hours}:${
             dataInputed.minutes.toString().length === 1 ? '0' + dataInputed.minutes : dataInputed.minutes}:00.00`,
             dataInputed.type, 
-            dataInputed.duration
+            dataInputed.duration,
+            dataInputed.category,
+            dataInputed.users.join(',')
         );
         fetchEvents();
     })
@@ -122,7 +138,9 @@ const Month = (props) => {
             dataInputed.hours.toString().length === 1 ? '0' + dataInputed.hours : dataInputed.hours}:${
             dataInputed.minutes.toString().length === 1 ? '0' + dataInputed.minutes : dataInputed.minutes}:00.00`,
             dataInputed.type, 
-           dataInputed.duration
+            dataInputed.duration,
+            dataInputed.category,
+            dataInputed.users.join(',')
         );
         fetchEvents();
     })
@@ -136,7 +154,6 @@ const Month = (props) => {
 
     }, []);
     useEffect(()=>{
-
         if(eventsError || createEventError || changeEventError){
             setTimeout(()=>{
                 router('/error');
@@ -146,6 +163,11 @@ const Month = (props) => {
     useEffect(()=>{
         fetchEvents();
     }, [selectedDate.getMonth(), selectedDate.getFullYear()])
+    useEffect(()=>{
+        if(category){
+            fetchEvents();
+        }
+    }, [category]);
     const monthLess = () =>{   
         let maxDate = (moment(`${selectedDate.getFullYear()}-${selectedDate.getMonth() === 0 ? 12 : selectedDate.getMonth()}-10`).endOf('month')._d.getDate());
         let updatedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth() - 1, +selectedDate.getDate() > maxDate ? maxDate : selectedDate.getDate(), +new Date().getHours(), +new Date().getMinutes(), +new Date().getSeconds());
@@ -174,14 +196,20 @@ const Month = (props) => {
         }
         dispatch(addDateAction(updatedDate.getTime()));
     }
-    
+    const changeCategory = (e) =>{
+        if(category !== e.target.textContent){
+            setCategory(e.target.textContent);           
+        }
+    }
+
+   
     if(props.typeCalendar === 'ordinary') {
         if(isEventsLoading || isChangeEventLoading || isCreateEventLoading){
         
             return(
                 <div className="loading-calendar">  
                     <div className="loading-test">
-                        <p>Відбувається завантаження даних. Зачекайте...</p>
+                        <p>Data is being loaded. Wait...</p>
                     </div>
                     <div className="loader-container">
                         <MyLoader />
@@ -194,10 +222,10 @@ const Month = (props) => {
         else{
             return (
                 <div className="month-container">
-                    <p className="up-part-title">Оберіть дату</p>
+                    <p className="up-part-title">Select a date</p>
                     <div className="up-part">
                         <div onClick={monthLess}><i className="fa fa-caret-square-o-left" aria-hidden="true"></i></div>
-                        <p className="current-date">{getNameMonth(selectedDate.getMonth(), 1) +  " " + selectedDate.getFullYear() + " року"} </p>
+                        <p className="current-date">{getNameMonth(selectedDate.getMonth(), 1) +  " " + selectedDate.getFullYear()} </p>
                         <div onClick={monthMore}><i className="fa fa-caret-square-o-right" aria-hidden="true"></i></div>
                     </div>
                     <div className="select-container">
@@ -206,7 +234,6 @@ const Month = (props) => {
                             name="roles" 
                             value={{value: getNameMonth(selectedDate.getMonth(), 1), label: getNameMonth(selectedDate.getMonth(), 1)}}
                             isClearable={false}
-                            placeholder='Категорії'
                             options={arrOfMonth}
                             onChange={(e)=>{
         
@@ -246,7 +273,6 @@ const Month = (props) => {
                             name="roles" 
                             value={{value: selectedDate.getFullYear(), label: selectedDate.getFullYear()}}
                             isClearable={false}
-                            placeholder='Категорії'
                             options={arrOfYear}
                             onChange={(e)=>{
                                 let maxDate = (moment(`${e.value}-${selectedDate.getMonth() + 1}-10`).endOf('month')._d.getDate());
@@ -286,8 +312,14 @@ const Month = (props) => {
                         />
                     </div>
         
-        
-                    <p className="center-container-title">Календар</p>
+                    <p className="up-part-categories">Select categories</p>
+                    <div className="categories">
+                        <p onClick={changeCategory} className={category === 'work' ? 'active' : ''}>work</p>
+                        <p onClick={changeCategory} className={category === 'home' ? 'active' : ''}>home</p>
+                        <p onClick={changeCategory} className={category === 'sport' ? 'active' : ''}>sport</p>
+                        <p onClick={changeCategory} className={category === 'all' ? 'active' : ''}>all</p>
+                    </div>
+                    <p className="center-container-title">Calendar</p>
                     <div className="center-container">
                         <div className="one-calendar">
                             <table>
@@ -342,10 +374,10 @@ const Month = (props) => {
                         </div>
                         {activeDate !== null &&
                             <div className="event-container">
-                                {activeDate.getTime() >= new Date().getTime() &&  
+                                {activeDate.getTime() >= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0).getTime() && 
                                     <div>
                                         {props.role === 'admin' &&
-                                            <MyButton onClick={()=>{props.setModalActive(1)}}>Створити нову подію</MyButton>
+                                            <MyButton onClick={()=>{props.setModalActive(1)}}>Create a new event</MyButton>
                                         }
                                     </div>
                                 }
@@ -355,12 +387,12 @@ const Month = (props) => {
                                 <div className="all-events-on-day">
                                     {events.filter(event => event.date.getDate() === activeDate.getDate())
                                         .map(curEvent => 
-                                            <OneEvent event={curEvent} key={curEvent.id} setModalActive={props.setModalActive} dataInputed={dataInputed} setDataInputed={setDataInputed} fetchEvents={fetchEvents} role={props.role} typeCalendar={'ordinary'}/>
+                                            <OneEvent event={curEvent} key={curEvent.id} setModalActive={props.setModalActive} dataInputed={dataInputed} setDataInputed={setDataInputed} fetchEvents={fetchEvents} role={props.role} isOwner={props.isOwner} typeCalendar={'ordinary'}/>
                                         )
                                     }
                                 </div>
                                 :
-                                    <p className="no-events">Немає подій цього дня</p>
+                                    <p className="no-events">There are no events for this day</p>
                                 }
                             </div>
                         }                
@@ -384,7 +416,7 @@ const Month = (props) => {
             return(
                 <div className="loading-calendar">  
                     <div className="loading-test">
-                        <p>Відбувається завантаження даних. Зачекайте...</p>
+                        <p>Data is being loaded. Wait...</p>
                     </div>
                     <div className="loader-container">
                         <MyLoader />
@@ -397,10 +429,10 @@ const Month = (props) => {
         else {
             return(
                 <div className="month-container">
-                    <p className="up-part-title">Оберіть дату</p>
+                    <p className="up-part-title">Select a date</p>
                     <div className="up-part">
                         <div onClick={monthLess}><i className="fa fa-caret-square-o-left" aria-hidden="true"></i></div>
-                        <p className="current-date">{getNameMonth(selectedDate.getMonth(), 1) +  " " + selectedDate.getFullYear() + " року"} </p>
+                        <p className="current-date">{getNameMonth(selectedDate.getMonth(), 1) +  " " + selectedDate.getFullYear()} </p>
                         <div onClick={monthMore}><i className="fa fa-caret-square-o-right" aria-hidden="true"></i></div>
                     </div>
                     <div className="select-container">
@@ -409,7 +441,7 @@ const Month = (props) => {
                             name="roles" 
                             value={{value: getNameMonth(selectedDate.getMonth(), 1), label: getNameMonth(selectedDate.getMonth(), 1)}}
                             isClearable={false}
-                            placeholder='Категорії'
+
                             options={arrOfMonth}
                             onChange={(e)=>{
         
@@ -449,7 +481,7 @@ const Month = (props) => {
                             name="roles" 
                             value={{value: selectedDate.getFullYear(), label: selectedDate.getFullYear()}}
                             isClearable={false}
-                            placeholder='Категорії'
+
                             options={arrOfYear}
                             onChange={(e)=>{
                                 let maxDate = (moment(`${e.value}-${selectedDate.getMonth() + 1}-10`).endOf('month')._d.getDate());
@@ -490,7 +522,7 @@ const Month = (props) => {
                     </div>
         
         
-                    <p className="center-container-title">Календар</p>
+                    <p className="center-container-title">Calendar</p>
                     <div className="center-container">
                         <div className="one-calendar">
                             <table>
@@ -548,7 +580,7 @@ const Month = (props) => {
                                 {activeDate.getTime() >= new Date().getTime() &&  
                                     <div>
                                         {props.role === 'admin' &&
-                                            <MyButton onClick={()=>{props.setModalActive(1)}}>Створити нову подію</MyButton>
+                                            <MyButton onClick={()=>{props.setModalActive(1)}}>Create a new event</MyButton>
                                         }
                                     </div>
                                 }
@@ -558,12 +590,12 @@ const Month = (props) => {
                                 <div className="all-events-on-day">
                                     {events.filter(event => event.date.getDate() === activeDate.getDate())
                                         .map(curEvent => 
-                                            <OneEvent event={curEvent} key={curEvent.id} setModalActive={props.setModalActive} dataInputed={dataInputed} setDataInputed={setDataInputed} fetchEvents={fetchEvents} role={props.role} typeCalendar={'main'}/>
+                                            <OneEvent event={curEvent} key={curEvent.id} setModalActive={props.setModalActive} dataInputed={dataInputed} setDataInputed={setDataInputed} fetchEvents={fetchEvents} role={props.role} isOwner={false} typeCalendar={'main'}/>
                                         )
                                     }
                                 </div>
                                 :
-                                    <p className="no-events">Немає подій цього дня</p>
+                                    <p className="no-events">There are no events for this day</p>
                                 }
                             </div>
                         }                

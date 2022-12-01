@@ -13,38 +13,60 @@ import Select from 'react-select';
 import MyLoader from "../UI/MyLoader2";
 import './Week.css';
 
+function getCurrentDate(date, index, curWeek){
+    if(curWeek.length === 0){
+        return(new Date());
+    }
+    if(curWeek[6] - curWeek[0] > 0) {  
+        return date;
+    }
+    else{
+        return new Date(getStartOfWeek(date).getTime() + (1000 * 60 * 60 * 24 * (index + 1)));
+    }
+}
 
+function getStartOfWeek(date){
+    return new Date(date.getTime() - (1000 * 60 * 60 * 24 * ((date.getDay() === 0 ? 7 : date.getDay()) - 1)));
+}
 function getTitleMonth(date, curWeek){
 
     
     if((curWeek[6] - curWeek[0]) > 0){
-        return getNameMonth(date.getMonth(), 1) +  " " + date.getFullYear() + " року";
+        return getNameMonth(date.getMonth(), 1) +  " " + date.getFullYear();
         
     }
     else if(date.getDate() - curWeek[0] >= 0){
         if(date.getMonth() === 11){
-            return "Грудень " + date.getFullYear() + " року" + ' - ' + "Січень " + (date.getFullYear() + 1) + " року"
+            return "December " + date.getFullYear() + ' - ' + "January " + (date.getFullYear() + 1)
         }
         else{
-            return getNameMonth(+date.getMonth(), 1) + ' - ' + getNameMonth(+date.getMonth() + 1, 1) + " " + date.getFullYear() + " року"
+            return getNameMonth(+date.getMonth(), 1) + ' - ' + getNameMonth(+date.getMonth() + 1, 1) + " " + date.getFullYear()
         }
         
     }
     else if(date.getDate() - curWeek[0] < 0){
         if(date.getMonth() === 0){
-            return "Грудень " + (date.getFullYear() - 1) + " року" + ' - ' + "Січень " + date.getFullYear() + " року"
+            return "December " + (date.getFullYear() - 1) + ' - ' + "January " + date.getFullYear()
         }
         else{
-            return getNameMonth(+date.getMonth() - 1, 1) + ' - ' +  getNameMonth(+date.getMonth(), 1) + " " + date.getFullYear() + " року"
+            return getNameMonth(+date.getMonth() - 1, 1) + ' - ' +  getNameMonth(+date.getMonth(), 1) + " " + date.getFullYear() 
         }
         
-    }
-
-    
+    }    
 }
 
-
-const arrOfMonth = [{value: 'Січень', label: 'Січень'}, {value: 'Лютий', label: 'Лютий'}, {value: 'Березень', label: 'Березень'}, {value: 'Квітень', label: 'Квітень'}, {value: 'Травень', label: 'Травень'}, {value: 'Червень', label: 'Червень'}, {value: 'Липень', label: 'Липень'}, {value: 'Серпень', label: 'Серпень'}, {value: 'Вересень', label: 'Вересень'}, {value: 'Жовтень', label: 'Жовтень'}, {value: 'Листопад', label: 'Листопад'}, {value: 'Грудень', label: 'Грудень'}];
+const arrOfMonth = [{value: 'January', label: 'January'}, 
+                    {value: 'February', label: 'February'}, 
+                    {value: 'March', label: 'March'}, 
+                    {value: 'April', label: 'April'}, 
+                    {value: 'May', label: 'May'}, 
+                    {value: 'June', label: 'June'},
+                    {value: 'July', label: 'July'}, 
+                    {value: 'August', label: 'August'}, 
+                    {value: 'September', label: 'September'}, 
+                    {value: 'October', label: 'October'}, 
+                    {value: 'November', label: 'November'}, 
+                    {value: 'December', label: 'December'}];
 const arrOfYear =  [];
 function monthFormated(date){
     let resArr = [];
@@ -62,7 +84,8 @@ function monthFormated(date){
     }    
 }
 const Week = (props) => {
-    const weeks = ["Пнд", "Втр", "Срд", "Чтв", "Птн", "Сбт", "Ндл"];
+    
+    const weeks = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     const month = [
         ['00', '00', '00', '00', '00', '00', '00'], 
         ['02', '02', '02', '02', '02', '02', '02'], 
@@ -82,11 +105,11 @@ const Week = (props) => {
     const dispatch = useDispatch();
     const selectedDate = new Date(useSelector( (state) => state.cash.curDate));
     const activeDate = useSelector( (state) => state.cash.activeDate);
-    const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours: props.typeOfDuration === 'Тиждень' ? selectedDate.getHours() : new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: ''});
+    const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours: props.typeOfDuration === 'Week' ? selectedDate.getHours() : new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work'});
 
     const [events, setEvents] = useState([]); 
     const [dateEvents, setDateEvents] = useState([]);
-
+    const [category, setCategory] = useState('all');
 
     const [fetchEvents, isEventsLoading, eventsError] = useFetching(async () => {
         let arr = [];
@@ -96,12 +119,13 @@ const Week = (props) => {
             response = await PostService.getEventsByWeek(
                 localStorage.getItem('access'), 
                 +window.location.pathname.slice(window.location.pathname.indexOf('calendars/') + 10), 
-                selectedDate.getFullYear(), 
-                (selectedDate.getMonth() + 1).toString().length === 1 ? '0' + (selectedDate.getMonth() + 1): selectedDate.getMonth() + 1,
-                curWeek[0]
+                getStartOfWeek(selectedDate).getFullYear(), 
+                (getStartOfWeek(selectedDate).getMonth() + 1).toString().length === 1 ? '0' + (getStartOfWeek(selectedDate).getMonth() + 1): getStartOfWeek(selectedDate).getMonth() + 1,
+                curWeek[0],
+                category
             );
             for(let i = 0; i < response.data.length; i++){
-                arr[i] = {id: response.data[i].id, title: response.data[i].title, description: response.data[i].description, date: new Date(response.data[i].execution_date),  type: response.data[i].type,  duration:  Math.ceil((response.data[i].duration / 3600) * 100) / 100};
+                arr[i] = {id: response.data[i].id, title: response.data[i].title, description: response.data[i].description, date: new Date(response.data[i].execution_date),  type: response.data[i].type,  duration:  Math.ceil((response.data[i].duration / 3600) * 100) / 100, category: response.data[i].category, login: response.data[i].login};
                 arrOfDates[i] = arr[i].date.getDate().toString() + (arr[i].date.getHours().toString().length === 1 ? '0' + arr[i].date.getHours(): arr[i].date.getHours());
             }
             
@@ -119,7 +143,6 @@ const Week = (props) => {
         setDateEvents(arrOfDates);
         setEvents(arr);
     })
-
     const [fetchCreateEvent, isCreateEventLoading, createEventError] = useFetching(async () => {
         await PostService.createEvent(
             localStorage.getItem('access'), 
@@ -132,7 +155,9 @@ const Week = (props) => {
             dataInputed.hours.toString().length === 1 ? '0' + dataInputed.hours : dataInputed.hours}:${
             dataInputed.minutes.toString().length === 1 ? '0' + dataInputed.minutes : dataInputed.minutes}:00.00`,
             dataInputed.type, 
-            dataInputed.duration
+            dataInputed.duration,
+            dataInputed.category,
+            dataInputed.users.join(',')
         );
         fetchEvents();
     })
@@ -150,7 +175,9 @@ const Week = (props) => {
             dataInputed.hours.toString().length === 1 ? '0' + dataInputed.hours : dataInputed.hours}:${
             dataInputed.minutes.toString().length === 1 ? '0' + dataInputed.minutes : dataInputed.minutes}:00.00`,
             dataInputed.type, 
-            dataInputed.duration
+            dataInputed.duration,
+            dataInputed.category,
+            dataInputed.users.join(',')
         );
         fetchEvents();
     })
@@ -175,6 +202,11 @@ const Week = (props) => {
     useEffect(()=>{
         fetchEvents();
     }, [curWeek])
+    useEffect(()=>{
+        if(category){
+            fetchEvents();
+        }
+    }, [category]);
     const monthLess = () =>{   
         let updatedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), +selectedDate.getDate() - 7, activeDate ? activeDate.getHours() : +new Date().getHours(), +new Date().getMinutes(), +new Date().getSeconds());
         setCurWeek(monthFormated(updatedDate));
@@ -214,6 +246,14 @@ const Week = (props) => {
         dispatch(addDateAction(updatedDate.getTime()));
     }
  
+    const changeCategory = (e) =>{
+        
+        if(category !== e.target.textContent){
+            setCategory(e.target.textContent);
+        }
+    }
+
+
 
     if(props.typeCalendar === 'ordinary') {
         if(isEventsLoading || isChangeEventLoading || isCreateEventLoading){
@@ -221,7 +261,7 @@ const Week = (props) => {
             return(
                 <div className="loading-calendar">  
                     <div className="loading-test">
-                        <p>Відбувається завантаження даних. Зачекайте...</p>
+                        <p>Data is being loaded. Wait...</p>
                     </div>
                     <div className="loader-container">
                         <MyLoader />
@@ -235,7 +275,7 @@ const Week = (props) => {
     
             return (
                 <div className="week-container">
-                    <p className="up-part-title">Оберіть дату</p>
+                    <p className="up-part-title">Choose a date</p>
                     <div className="up-part">
                         <div onClick={monthLess}><i className="fa fa-caret-square-o-left" aria-hidden="true"></i></div>
                         <p className="current-date">{getTitleMonth(selectedDate, curWeek)} </p>
@@ -247,7 +287,6 @@ const Week = (props) => {
                             name="roles" 
                             value={{value: getNameMonth(selectedDate.getMonth(), 1), label: getNameMonth(selectedDate.getMonth(), 1)}}
                             isClearable={false}
-                            placeholder='Категорії'
                             options={arrOfMonth}
                             onChange={(e)=>{
         
@@ -288,7 +327,6 @@ const Week = (props) => {
                             name="roles" 
                             value={{value: selectedDate.getFullYear(), label: selectedDate.getFullYear()}}
                             isClearable={false}
-                            placeholder='Категорії'
                             options={arrOfYear}
                             onChange={(e)=>{
                                 let maxDate = (moment(`${e.value}-${selectedDate.getMonth() + 1}-10`).endOf('month')._d.getDate());
@@ -328,8 +366,14 @@ const Week = (props) => {
                         />
                     </div>
         
-        
-                    <p className="center-container-title">Календар</p>
+                    <p className="up-part-categories">Select categories</p>
+                    <div className="categories">
+                        <p onClick={changeCategory} className={category === 'work' ? 'active' : ''}>work</p>
+                        <p onClick={changeCategory} className={category === 'home' ? 'active' : ''}>home</p>
+                        <p onClick={changeCategory} className={category === 'sport' ? 'active' : ''}>sport</p>
+                        <p onClick={changeCategory} className={category === 'all' ? 'active' : ''}>all</p>
+                    </div>
+                    <p className="center-container-title">Calendar</p>
                     <div className="center-container">
                         <div className="title-time">  
                             <p>00:00</p>
@@ -364,13 +408,11 @@ const Week = (props) => {
                                                 {week.map((time, index) =>
                                                     
                                                     
-                                                    (selectedDate.getFullYear().toString() + selectedDate.getMonth() + curWeek[index] + time) === 
-                                                        (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) ||  
-                                                        (selectedDate.getFullYear().toString() + selectedDate.getMonth() + curWeek[index] + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))) === 
-                                                        (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) 
+                                                    (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + curWeek[index] + time) === 
+                                                    (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) ||  
+                                                    (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + curWeek[index] + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))) === 
+                                                    (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) 
                                                         ?
-    
-                                                       
                                                         activeDate !== null && curWeek[index] && (curWeek[index].toString() + time === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours(): activeDate.getHours()))
                                                             ?
                                                             <td key={index} className={curWeek[index] && (dateEvents.includes(curWeek[index].toString() + time) || dateEvents.includes(curWeek[index].toString() + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1)))) ? 'fill-cell active today event' : 'fill-cell active today' } onClick={(e) => {activeDay(e ,week[0], index)}}> 
@@ -382,8 +424,6 @@ const Week = (props) => {
                                                                 <i className="fa fa-check" aria-hidden="true"></i>
                                                             </td>
                                                         :
-    
-                                                        
                                                         activeDate !== null && curWeek[index] && (curWeek[index].toString() + time === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours(): activeDate.getHours()))      
                                                             ?
                                                             <td key={index} className={curWeek[index] && (dateEvents.includes(curWeek[index].toString() + time) || dateEvents.includes(curWeek[index].toString() + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))))  ? 'fill-cell active event':  'fill-cell active'} onClick={(e) => {activeDay(e, week[0], index)}}>
@@ -405,10 +445,10 @@ const Week = (props) => {
                     </div>
                     {activeDate !== null &&
                             <div className="event-container">
-                                {activeDate.getTime() >= new Date().getTime() &&  
+                                {activeDate.getTime() >= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours() % 2 === 0 ? new Date().getHours() : new Date().getHours() + 1).getTime() &&  
                                     <div>
                                         {props.role === 'admin' &&
-                                            <MyButton onClick={()=>{props.setModalActive(1)}}>Створити нову подію</MyButton>
+                                            <MyButton onClick={()=>{props.setModalActive(1)}}>Create new event</MyButton>
                                         }
                                     </div>
                                 }
@@ -424,12 +464,12 @@ const Week = (props) => {
                                         activeDate.getDate().toString() + ((+activeDate.getHours() + 1).toString().length === 1 ? '0' + (+activeDate.getHours() + 1): +activeDate.getHours() + 1) 
                                         )
                                         .map(curEvent => 
-                                            <OneEvent event={curEvent} key={curEvent.id} setModalActive={props.setModalActive} dataInputed={dataInputed} setDataInputed={setDataInputed} fetchEvents={fetchEvents} role={props.role} typeCalendar={'ordinary'}/>
+                                            <OneEvent event={curEvent} key={curEvent.id} setModalActive={props.setModalActive} dataInputed={dataInputed} setDataInputed={setDataInputed} fetchEvents={fetchEvents} role={props.role} isOwner={props.isOwner} typeCalendar={'ordinary'}/>
                                         )
                                     }
                                 </div>
                                 :
-                                    <p className="no-events">Немає подій цього дня</p>
+                                    <p className="no-events">There are no events for this time</p>
                                 }
                             </div>
                         }         
@@ -452,7 +492,7 @@ const Week = (props) => {
             return(
                 <div className="loading-calendar">  
                     <div className="loading-test">
-                        <p>Відбувається завантаження даних. Зачекайте...</p>
+                        <p>Data is being loaded. Wait...</p>
                     </div>
                     <div className="loader-container">
                         <MyLoader />
@@ -465,7 +505,7 @@ const Week = (props) => {
         else {
             return (
                 <div className="week-container">
-                    <p className="up-part-title">Оберіть дату</p>
+                    <p className="up-part-title">Choose a date</p>
                     <div className="up-part">
                         <div onClick={monthLess}><i className="fa fa-caret-square-o-left" aria-hidden="true"></i></div>
                         <p className="current-date">{getTitleMonth(selectedDate, curWeek)} </p>
@@ -477,7 +517,6 @@ const Week = (props) => {
                             name="roles" 
                             value={{value: getNameMonth(selectedDate.getMonth(), 1), label: getNameMonth(selectedDate.getMonth(), 1)}}
                             isClearable={false}
-                            placeholder='Категорії'
                             options={arrOfMonth}
                             onChange={(e)=>{
         
@@ -518,7 +557,6 @@ const Week = (props) => {
                             name="roles" 
                             value={{value: selectedDate.getFullYear(), label: selectedDate.getFullYear()}}
                             isClearable={false}
-                            placeholder='Категорії'
                             options={arrOfYear}
                             onChange={(e)=>{
                                 let maxDate = (moment(`${e.value}-${selectedDate.getMonth() + 1}-10`).endOf('month')._d.getDate());
@@ -559,7 +597,7 @@ const Week = (props) => {
                     </div>
         
         
-                    <p className="center-container-title">Календар</p>
+                    <p className="center-container-title">Calendar</p>
                     <div className="center-container">
                         <div className="title-time">  
                             <p>00:00</p>
@@ -594,10 +632,10 @@ const Week = (props) => {
                                                 {week.map((time, index) =>
                                                     
                                                     
-                                                    (selectedDate.getFullYear().toString() + selectedDate.getMonth() + curWeek[index] + time) === 
-                                                        (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) ||  
-                                                        (selectedDate.getFullYear().toString() + selectedDate.getMonth() + curWeek[index] + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))) === 
-                                                        (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) 
+                                                    (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + curWeek[index] + time) === 
+                                                    (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) ||  
+                                                    (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + curWeek[index] + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))) === 
+                                                    (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) 
                                                         ?
     
                                                        
@@ -646,12 +684,12 @@ const Week = (props) => {
                                     activeDate.getDate().toString() + ((+activeDate.getHours() + 1).toString().length === 1 ? '0' + (+activeDate.getHours() + 1): +activeDate.getHours() + 1) 
                                     )
                                     .map(curEvent => 
-                                        <OneEvent event={curEvent} key={curEvent.id} setModalActive={props.setModalActive} dataInputed={dataInputed} setDataInputed={setDataInputed} fetchEvents={fetchEvents} typeCalendar={'main'}/>
+                                        <OneEvent event={curEvent} key={curEvent.id} setModalActive={props.setModalActive} dataInputed={dataInputed} setDataInputed={setDataInputed} fetchEvents={fetchEvents} isOwner={false} typeCalendar={'main'}/>
                                     )
                                 }
                             </div>
                             :
-                                <p className="no-events">Немає подій цього дня</p>
+                                <p className="no-events">There are no events for this time</p>
                             }
                         </div>
                     }

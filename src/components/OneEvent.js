@@ -11,24 +11,18 @@ import './OneEvent.css';
 function checkHours(index){
     switch (+index) {
         case 1:
-            return 'годину';
-        case 2:
-            return 'години';
-        case 3:
-            return 'години';
-        case 4:
-            return 'години';
+            return 'hour';
         default:
-            return 'годин';
+            return 'hours';
     }
 }
 
 const OneEvent = (props) => {
     const router = useNavigate();
-
+    
     const changePost = (e) =>{
         e.stopPropagation();
-        props.setDataInputed({...props.dataInputed, id: props.event.id, title: props.event.title, description: props.event.description, hours: props.event.date.getHours().toString(), minutes: props.event.date.getMinutes().toString(), type: props.event.type, duration:props.event.duration.toString()});
+        props.setDataInputed({...props.dataInputed, id: props.event.id, title: props.event.title, description: props.event.description, hours: props.event.date.getHours().toString(), minutes: props.event.date.getMinutes().toString(), type: props.event.type, duration:props.event.duration.toString(), users: [{id: 21, login: 'dimars'}], category: props.event.category});
         props.setModalActive(3);
     }
     const [fetchDeleteEvent, isDeleteEventLoading, deleteEventError] = useFetching(async () => {
@@ -60,7 +54,7 @@ const OneEvent = (props) => {
                             <p>{props.event.date.getHours().toString().length === 1 ? '0' + props.event.date.getHours() : props.event.date.getHours()}:{props.event.date.getMinutes().toString().length === 1 ? '0' + props.event.date.getMinutes() : props.event.date.getMinutes()}</p>
                         }
                     </div>
-                    <p className="time-date">{props.event.date.getDate()} {getNameMonth(props.event.date.getMonth(), 0)} {props.event.date.getFullYear()} року</p>
+                    <p className="time-date">{getNameMonth(props.event.date.getMonth(), 0)} {props.event.date.getDate()}, {props.event.date.getFullYear()}</p>
                 </div>
                 :
                 <div className="time">
@@ -74,7 +68,7 @@ const OneEvent = (props) => {
             {props.event.type === 'arrangement' 
                 ?
                 <div className="duration">
-                    <p>Триває {props.event.duration} {checkHours(props.event.duration)}</p>
+                    <p>Lasts {props.event.duration} {checkHours(props.event.duration)}</p>
                 </div>
                 
                 :
@@ -87,10 +81,34 @@ const OneEvent = (props) => {
                     {props.role === 'admin' && 
                         <div>
                             {!props.isSmall &&
-                            <div>
-                                <i onClick={changePost} className="fa fa-pencil-square" aria-hidden="true"></i>
-                                <i onClick={(e) => {e.stopPropagation(); fetchDeleteEvent()}} className="fa fa-times" aria-hidden="true"></i>
-                            </div>
+                                <>
+                                    {props.event.type === 'arrangement'
+                                        ?
+                                        <>
+                                            {props.event.login === localStorage.getItem('login') ?
+                                                <div>
+                                                    <i onClick={changePost} className="fa fa-pencil-square" aria-hidden="true"></i>
+                                                    <i onClick={(e) => {e.stopPropagation(); fetchDeleteEvent()}} className="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                :
+                                                <>
+                                                    {props.isOwner &&
+                                                        <div>
+                                                            <i onClick={(e) => {e.stopPropagation(); fetchDeleteEvent()}} className="fa fa-times" aria-hidden="true"></i>
+                                                        </div>
+                                                    }
+                                                </>
+                                            }
+                                        </>
+                                        :
+                                        <>
+                                            <div>
+                                                <i onClick={changePost} className="fa fa-pencil-square" aria-hidden="true"></i>
+                                                <i onClick={(e) => {e.stopPropagation(); fetchDeleteEvent()}} className="fa fa-times" aria-hidden="true"></i>
+                                            </div>
+                                        </>
+                                    }
+                                </>
                             }
                         </div>
                     }
@@ -104,3 +122,5 @@ const OneEvent = (props) => {
 }
 
 export default OneEvent;
+
+

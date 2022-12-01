@@ -51,7 +51,7 @@
 }
 
 .modal-window-with-date form .title-time {
-    margin-left: 230px;
+    margin-left: 225px;
 }
 
 .modal-window-with-date form .time-container p {
@@ -167,6 +167,54 @@
     margin-bottom: 25px;
 }
 
+.modal-window-with-date .invited-container {
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+
+.modal-window-with-date .category-container {
+    margin-top: 10px;
+}
+
+.modal-window-with-date .invited-container p {
+    margin-left: 100px;
+}
+.modal-window-with-date .category-container p {
+    margin-left: 100px;
+}
+
+.create-event .loading .modal-up-title-container{
+    display: flex;
+    justify-content: center;
+    background-color: green;
+    margin: -20px -20px 50px -20px;
+    padding: 20px 0px;
+}
+
+.create-event .loading .modal-title{
+    text-align: center;
+    font-size: 26px;
+    opacity: 0.6;
+    color: white;
+}
+
+.create-event .loading .modal-content-container{
+    text-align: center;  
+}
+
+.create-event .loading .modal-content-container p{
+    font-size: 28px;
+    font-family: 'Comfortaa', cursive;
+    margin-bottom: 30px; 
+    opacity: 0.6;
+}
+
+.create-event .loading .modal-content-container div{
+    margin: auto;
+    margin-bottom: 40px;    
+}
+
 
 @media only screen and (min-width:460px) and (max-width: 580px){
 
@@ -185,13 +233,19 @@
         margin-left: 40px;
     }
     .modal-window-with-date form .title-time {
-        margin-left: 180px;
+        margin-left: 175px;
+    }   
+    .modal-window-with-date .invited-container p {
+        margin-left: 60px;
+    }
+    .modal-window-with-date .category-container p {
+        margin-left: 60px;
     }
     
     
 }
 
-@media only screen and (min-width:340px) and (max-width: 460px){
+@media only screen and (min-width:320px) and (max-width: 460px){
     .modal-window-with-date .input-container {
         margin-left: -7px;
         margin-right: -7px;
@@ -211,7 +265,7 @@
         height: 150px;
     }
     .modal-window-with-date form .title-time {
-        margin-left: 110px;
+        margin-left: 120px;
     }
     .modal-window-with-date form .title-select{
         margin-left: 0px;
@@ -222,20 +276,26 @@
     .modal-window-with-date form button {
         width: 220px;
     }
-
+    
+    .modal-window-with-date .invited-container p {
+        margin-left: -10px;
+    }
+    .modal-window-with-date .category-container p {
+        margin-left: -10px;
+    }
     
 }
 
-@media only screen and (max-width: 340px){
+@media only screen and (max-width: 320px){
     .modal-window-with-date .input-container {
         margin-left: -19px;
         margin-right: -19px;
     }
     
-.modal-window-with-date .input-file-desc {
-    width: 185px;
-    font-size: 16px;
-}
+    .modal-window-with-date .input-file-desc {
+        width: 185px;
+        font-size: 16px;
+    }
 
     .modal-window-with-date > p{
         font-size: 18px;
@@ -252,7 +312,7 @@
         margin-left: -15px;
     }
     .modal-window-with-date form .title-time {
-        margin-left: 60px;
+        margin-left: 55px;
     }
     .modal-window-with-date form .title-select{
         margin-left: 0px;
@@ -263,5 +323,11 @@
     }
     .modal-window-with-date form button {
         width: 120px;
+    }
+    .modal-window-with-date .invited-container p {
+        margin-left: -10px;
+    }
+    .modal-window-with-date .category-container p {
+        margin-left: -10px;
     }
 }

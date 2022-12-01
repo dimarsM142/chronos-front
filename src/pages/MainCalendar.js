@@ -14,7 +14,7 @@ import './Calendar.css';
 
 const Calendar = (props) => {
     const [modalActive, setModalActive] = useState(false);
-    const [typeOfDuration, setTypeOfDuration] = useState('Місяць');
+    const [typeOfDuration, setTypeOfDuration] = useState('Month');
     
     const [isSearchedEvents, setIsSearchedEvents] = useState(false); 
     const [events, setEvents] = useState([]); 
@@ -53,7 +53,7 @@ const Calendar = (props) => {
         return(
             <div className="loading-calendar">  
                 <div className="loading-test">
-                    <p>Відбувається завантаження даних. Зачекайте...</p>
+                    <p>Data is being loaded. Wait..</p>
                 </div>
                 <div className="loader-container">
                     <MyLoader />
@@ -74,7 +74,7 @@ const Calendar = (props) => {
                             name="roles" 
                             value={{value: typeOfDuration, label: typeOfDuration}}
                             isClearable={false}
-                            options={[{value: 'Тиждень', label: 'Тиждень'}, {value: 'Місяць', label: 'Місяць'}, {value: 'Рік', label: 'Рік'}]}
+                            options={[{value: 'Week', label: 'Week'}, {value: 'Month', label: 'Month'}, {value: 'Year', label: 'Year'}]}
                             onChange={(e)=>{setTypeOfDuration(e.value)}} 
                             theme={theme => ({
                                 ...theme,
@@ -104,10 +104,10 @@ const Calendar = (props) => {
                         <div>
                             {events.length === 0 
                                 ?
-                                <p className="no-events-text">Немає таких подій у даному календарі :(</p>
+                                <p className="no-events-text">There are no such events in this calendar :(</p>
                                 :
                                 <div>
-                                    <p className="events-title">Події</p>
+                                    <p className="events-title">Events</p>
                                     <div className="events">
                                     {events.map(curEvent => 
                                             <OneEvent event={curEvent} key={curEvent.id} setModalActive={setModalActive} fetchEvents={fetchEvents} role={role} dataInputed={dataInputed} setDataInputed={setDataInputed} isSmall={true}/>
@@ -119,13 +119,13 @@ const Calendar = (props) => {
                         </div>
                     </div>
                 }
-                {typeOfDuration === 'Місяць' &&
+                {typeOfDuration === 'Month' &&
                     <Month modalActive={modalActive} setModalActive={setModalActive} typeOfDuration={typeOfDuration} typeCalendar={'main'}/>
                 }
-                {typeOfDuration === 'Тиждень' &&
+                {typeOfDuration === 'Week' &&
                     <Week modalActive={modalActive} setModalActive={setModalActive} typeOfDuration={typeOfDuration} typeCalendar={'main'}/>
                 }
-                 {typeOfDuration === 'Рік' &&
+                 {typeOfDuration === 'Year' &&
                     <Year modalActive={modalActive} setModalActive={setModalActive} setTypeOfDuration={setTypeOfDuration} typeOfDuration={typeOfDuration}/>
                 }
                 
@@ -136,9 +136,3 @@ const Calendar = (props) => {
 
 export default Calendar;
 
-//1) Тиждень/рік  ++DONE!
-//2) ГУГЛ АПІ НАЦ СВЯТА
-//3) Категорії до подій
-//4) Кольора для подій
-//5) Юзери для подій
-//6) Сеарч клієнта ++DONE!

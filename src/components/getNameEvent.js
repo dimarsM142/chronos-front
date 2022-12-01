@@ -1,15 +1,15 @@
 function getNameEvent(index) {
     switch (index) {
         case 'reminder':
-            return 'Нагадування';
+            return 'Reminder';
         case 'task':
-            return 'Завдання';
+            return 'Task';
         case 'arrangement':
-            return 'Зустріч';
+            return 'Arrangement';
         case 'holiday':
-            return 'Свято';
+            return 'Holiday';
         default:
-            return 'СуперПодія';
+            return 'SUPERHOLIDAY';
     }
 }
 

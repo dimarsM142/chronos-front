@@ -1,8 +1,6 @@
 .one-event {
     border-radius: 5px;
     margin-bottom: 20px;
-    
-
     display: grid;
     grid-template-areas: 
     'title title change'

@@ -24,9 +24,8 @@ const Navigation = (props) => {
         return (
             <nav className="up-nav">
                 <ul>
-                    <li><img className="logo" src='https://cdn-icons-png.flaticon.com/128/7540/7540143.png' alt='logo'/></li>
-                    <li><Link to="/calendars">Основна</Link></li>
-                    <li className="rigth logout"><Link to="/login" onClick={logOut}>Вийти</Link></li>
+                    <li ><Link to="/calendars"><img className="logo" src='https://www.pngkey.com/png/full/18-180664_calendar-clock-comments-time-and-date-icon-png.png' alt='logo'/></Link></li>
+                    <li className="rigth logout"><Link to="/login" onClick={logOut}>Log out</Link></li>
                     <li className="rigth account">
                         <Link to={loginLink} style={{position: 'relative'}}>
                             <p>{localStorage.getItem('login')}</p>

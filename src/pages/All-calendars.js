@@ -18,12 +18,12 @@ const AllCalendars = (props) => {
     const [modalActive, setModalActive] = useState(false);
     const [calendars, setCalendars] = useState([]);
     const [mainCalendar, setMainCalendar] = useState({});
-    const [typeOfCalendars, setTypeOfCalendars] = useState({value:'own',label:'Ваші календарі'});
+    const [typeOfCalendars, setTypeOfCalendars] = useState({value:'own', label:'Your calendars'});
     const [showInputForSubsUser,setShowInputForSubsUser] = useState(false);
     const [checkAllSubsedUsers, setCheckAllSubsedUsers] = useState(false);
     const [showAllSubsedUsers, setShowAllSubsedUsers] = useState([]);
     const [curCalendarCreate, setCalendarCreate] = useState({title:'', id:''});
-    const [roleForSubsUser, setRoleforSubsUser] = useState({value: 'user', label: 'Користувач'});
+    const [roleForSubsUser, setRoleforSubsUser] = useState({value: 'user', label: 'User'});
     const [userInput, setUserInput] = useState('');
     const [error, setError] = useState('');
     const [curTimeoutID, setCurTimeoutID] = useState();
@@ -57,8 +57,7 @@ const AllCalendars = (props) => {
         fetchCalendars();
         fetchMainCalendar();
     }, []);
-    
-
+  
     const [fetchGetSubscribedUser, isGetUserSubscribe, getSubscribeUserError] = useFetching(async (id) => {
 
         const res = await PostService.getAllUsersSubsedToCalendar(localStorage.getItem('access'), id);
@@ -67,13 +66,13 @@ const AllCalendars = (props) => {
     const [fetchSubscribeUser, isUserSubscribeLoading, subscribeUserError] = useFetching(async () => {
         clearTimeout(curTimeoutID);
         if(userInput === localStorage.getItem('login')){
-            setError('Ви не можете підписати себе на календар!');
+            setError('You cannot subscribe to the calendar!');
             const id = setTimeout(()=>{setError('')}, 2000);
             setCurTimeoutID(id);// eslint-disable-next-line
             return;
         }
         else if(userInput.length < 4){
-            setError('Немає такого користувача!');
+            setError('There is no such user!');
             const id = setTimeout(()=>{setError('')}, 2000);
             setCurTimeoutID(id);// eslint-disable-next-line
             return;
@@ -104,7 +103,7 @@ const AllCalendars = (props) => {
         }
         if(!showInputForSubsUser){
             setUserInput('');
-            setRoleforSubsUser({value: 'user', label: 'Користувач'});
+            setRoleforSubsUser({value: 'user', label: 'User'});
         }
     },[showInputForSubsUser, checkAllSubsedUsers, isSuccessAdding]);
     
@@ -134,12 +133,12 @@ const AllCalendars = (props) => {
         if(subscribeUserError){
             
             if(subscribeUserError.data.comment === "User with this login does not exists!"){
-                setError('Користувача з таким логіном не існує!');
+                setError('There is no user with this login!');
                 const id = setTimeout(()=>{setError('')}, 2000);
                 setCurTimeoutID(id);// eslint-disable-next-line
             }
             else if(subscribeUserError.data.comment === "The user is already subscribed to this calendar!"){
-                setError('Даний користувач вже є підписаним на ваш календар!');
+                setError('This user is already subscribed to your calendar!');
                 const id = setTimeout(()=>{setError('')}, 2000);
                 setCurTimeoutID(id);
             }
@@ -160,7 +159,7 @@ const AllCalendars = (props) => {
                     <div className="fake-posts"></div>
                 </div>
                 <div className="loading-test">
-                    <p>Відбувається завантаження даних. Зачекайте...</p>
+                    <p>Data is being loaded. Wait...</p>
                 </div>
                 <div className="loader-container">
                     <MyLoader2 />
@@ -172,13 +171,13 @@ const AllCalendars = (props) => {
         return (
             <div className="all-calendars-container">
                 <div className="up-container">
-                    <MyButton onClick={()=>{setModalActive(1)}}>Створити календар</MyButton>
+                    <MyButton onClick={()=>{setModalActive(1)}}>Create a calendar</MyButton>
                     <Select 
                         className='select-create' 
                         name="roles" 
                         value={{value: typeOfCalendars.value, label: typeOfCalendars.label}}
                         isClearable={false}
-                        options={[{value: 'own', label: 'Ваші календарі'}, {value: 'subscribed', label: 'Ваші підписки'}]}
+                        options={[{value: 'own', label: 'Your calendars'}, {value: 'subscribed', label: 'Your subscriptions'}]}
                         onChange={(e)=>{
                             setTypeOfCalendars(e)
                             if(e.value === 'own'){
@@ -210,14 +209,14 @@ const AllCalendars = (props) => {
                 {typeOfCalendars.value === 'own' 
                     ?
                     <div>
-                        <p className="all-calendars-container-active-title">Ваші календарі</p>
+                        <p className="all-calendars-container-active-title">Your calendars</p>
                         <div className="all-calendars-container-active-content">
                             {typeOfCalendars.value === 'own' &&
                                 <OneMainCalendar 
                                     calendar={mainCalendar} 
                                     key={'mainCalendarKey'} 
                                     fetchCalendars={fetchMainCalendar} 
-                                    typeOfCalendars={{value:'own',label:'Ваші календарі'}}
+                                    typeOfCalendars={{value:'own',label:'Your calendars'}}
                                     modalActive={modalActive}
                                     setModalActive={setModalActive}
                                     setDataInputed={setDataInputed}
@@ -248,7 +247,7 @@ const AllCalendars = (props) => {
                         {calendars.length !== 0 
                             ?
                             <div>
-                                <p className="all-calendars-container-active-title">Календарі, на які ви підписані</p>
+                                <p className="all-calendars-container-active-title">Calendars you are subscribed to</p>
                                 <div className="all-calendars-container-active-content">
                                     {calendars.map((calendar) =>
                                         <OneCalendar 
@@ -271,7 +270,7 @@ const AllCalendars = (props) => {
                                 </div>
                             </div>
                             :
-                            <p className="all-calendars-container-not-active-title">Немає календарів :(</p>
+                            <p className="all-calendars-container-not-active-title">No calendars :(</p>
                         }
                         
                     </div>    
@@ -291,28 +290,28 @@ const AllCalendars = (props) => {
                         ?
                         <div className="loading">
                             <div className="modal-up-title-container">
-                                <p className="modal-title">Календар</p>
+                                <p className="modal-title">Calendar</p>
                                 <p className="modal-calendar-name">{curCalendarCreate.title}</p>
                             </div>
                             <div className="modal-content-container">
                                 <div>
                                     <MyLoader />
                                 </div>
-                                <p>Відбувається завантаження ...</p>
+                                <p>Loading...</p>
                             </div>
                         </div>    
                         :
                         <div className="modal-get-users">
                             <div className="modal-up-title-container">
-                                <p className="modal-title">Календар</p>
+                                <p className="modal-title">Calendar</p>
                                 <p className="modal-calendar-name">{curCalendarCreate.title}</p>
                             </div>
                             {showAllSubsedUsers.length === 0
                                 ?
-                                <p className="modal-no-subs">Даний календар не має підписників :(</p>
+                                <p className="modal-no-subs">This calendar has no subscribers :(</p>
                                 :
                                 <div className="modal-all-users">
-                                    <p className="modal-all-users-title">Підписники</p>
+                                    <p className="modal-all-users-title">Subscribers</p>
                                     <div className="modal-all-users-content">
                                         {showAllSubsedUsers.map((user) =>
                                             <Subscriber key={user.user_id} user={user} changeSubscribedUserRole={fetchChangeSubscribeUser} unsubscribeUserFromCalendar={fetchDeleteSubscribeUser}/>
@@ -329,14 +328,14 @@ const AllCalendars = (props) => {
                         <Modal modalActive={true}  setModalActive={()=>{}}>
                             <div className="loading">
                                 <div className="modal-up-title-container">
-                                    <p className="modal-title">Календар</p>
+                                    <p className="modal-title">Calendar</p>
                                     <p className="modal-calendar-name">{curCalendarCreate.title}</p>
                                 </div>
                                 <div className="modal-content-container">
                                     <div>
                                         <MyLoader />
                                     </div>
-                                    <p>Відбувається завантаження ...</p>
+                                    <p>Loading...</p>
                                 </div>
                             </div>    
                         </Modal>
@@ -360,12 +359,12 @@ const AllCalendars = (props) => {
                     <Modal modalActive={true} setModalActive={()=>{}}>
                         <div className="successfull-adding">
                             <div className="modal-up-title-container">
-                                <p className="modal-title">Календар</p>
+                                <p className="modal-title">Calendar</p>
                                 <p className="modal-calendar-name">{curCalendarCreate.title}</p>
                             </div>
                             <div className="modal-content-container">
                                 <i className="fa fa-check-circle-o" aria-hidden="true"></i>
-                                <p>Користувача успішно підписано!</p>
+                                <p>The user has been successfully signed up!</p>
                             </div>
                         </div>  
                     </Modal>

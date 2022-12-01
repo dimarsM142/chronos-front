@@ -11,7 +11,7 @@
 .up-nav ul{
     
     padding: 0;
-    margin-left: 100px;
+    margin-left: 0px;
 }
 
 .up-nav li{
@@ -72,9 +72,7 @@
 }
 
 @media only screen and (min-width: 380px) and (max-width: 710px) {
-    .up-nav .logo {
-        display: none;
-    }
+    
     .up-nav .account p {
         display: none;
     }
@@ -91,12 +89,34 @@
     .up-nav ul{
         margin-left: 0px;
     }
+    .up-nav .main a{
+        padding: 20px 50px;
+    }
 }
 
 @media only screen and (min-width: 315px) and (max-width: 380px) {
-    .up-nav .logo {
+    
+    .up-nav .account p {
         display: none;
     }
+    
+    .up-nav p {
+        display: none;
+    }
+    .up-nav a {
+        padding: 20px 20px;
+    }
+    .up-nav .account a {
+        padding: 20px 32.1px;
+    }
+    .up-nav .main a{
+        padding: 20px 50px;
+    }
+
+}
+
+@media only screen and (max-width: 315px) {
+   
     .up-nav .account p {
         display: none;
     }
@@ -113,26 +133,7 @@
     .up-nav ul{
         margin-left: 0px;
     }
-}
-
-@media only screen and (max-width: 315px) {
-    .up-nav .logo {
-        display: none;
-    }
-    .up-nav .account p {
-        display: none;
-    }
-    
-    .up-nav p {
-        display: none;
-    }
-    .up-nav a {
-        padding: 20px 0px;
-    }
-    .up-nav .account a {
-        padding: 20px 32.1px;
-    }
-    .up-nav ul{
-        margin-left: 0px;
+    .up-nav .main a{
+        padding: 20px 50px;
     }
 }

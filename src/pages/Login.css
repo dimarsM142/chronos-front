@@ -72,7 +72,7 @@
 
     padding: 0;
     margin: 0;
-    margin-left: 35px;
+    margin-left: 40px;
     font-size: 18px;
     color: black;
 }
@@ -124,10 +124,7 @@
     }
     
     .loginForm input {
-        width: 150px;
-    }
-    .loginForm input:focus {
-        width: 200px;
+        width: 185px;
     }
     .loginForm > button {
         width: 150px;
@@ -155,10 +152,7 @@
     }
     
     .loginForm input {
-        width: 100px;
-    }
-    .loginForm input:focus {
-        width: 120px;
+        width: 130px;
     }
     .loginForm > button {
         width: 150px;
@@ -166,7 +160,7 @@
         margin-top: 40px;
     }
     .loginForm .nameInput {
-        margin-left: 35px;
+        margin-left: 25px;
     }
     .loginForm .password svg{
         margin-left: 120px;

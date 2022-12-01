@@ -21,7 +21,7 @@ const ForgotPassword = () => {
     useEffect(() =>{
         if(postError){
             if(postError.data.comment === 'Incorrect login entered!'){
-                setErrorText('Даний логін не зареєстрований');
+                setErrorText('This login is not registered');
                 const id = setTimeout(()=>{setErrorText('')}, 2000);
                 setCurTimeoutID(id);
             }
@@ -34,10 +34,11 @@ const ForgotPassword = () => {
     function sendPass(e){
         e.preventDefault();
         clearTimeout(curTimeoutID);
-        if(!dataInputed.login){
-            setErrorText('Введіть логін');
+        if(dataInputed.login.length < 1){
+            setErrorText('Input login');
             const id = setTimeout(()=>{setErrorText('')}, 2000);
             setCurTimeoutID(id);
+            return;
         }
         fetchForgotPassword();
         setDataInputed({login:''});
@@ -45,14 +46,14 @@ const ForgotPassword = () => {
     if(message){
         return (
             <div className="forgotForm">
-            <p className="header">ЗМІНА ПАРОЛЯ</p>
+            <p className="header">RESET PASSWORD</p>
             <div className="result-text">
-                <p className="main-text">Пароль успішно надіслано вам на пошту.</p>
-                <p className="second-text">Перейдіть за посиланням на вашій пошті, щоб встановити новий пароль.</p>
+                <p className="main-text">The password has been successfully emailed to you.</p>
+                <p className="second-text">Follow the link in your email to set a new password.</p>
             </div>
-            <p className="lastPartName">Згадали пароль?</p>
+            <p className="lastPartName">Have you recalled the password?</p>
             <div className="lastPart">
-                <Link to="/login">Зайти в акаунт</Link> 
+                <Link to="/login">Log in</Link> 
             </div>
             
         </div>
@@ -64,19 +65,19 @@ const ForgotPassword = () => {
                 {isPostsLoading
                     ?
                     <div className="forgotForm">
-                        <p className="header">ЗМІНА ПАРОЛЯ</p>
-                        <p className="loading-text">Відбувається надсилання даних. Зачекайте...</p>
+                        <p className="header">RESET PASSWORD</p>
+                        <p className="loading-text">Data is being sent. Wait...</p>
                         <div className="loader">
                             <MyLoader />
                         </div>
                     </div>
                     :
                     <div className="forgotForm">
-                        <p className="header">ЗМІНА ПАРОЛЯ</p>
-                        <p className="nameInput">логін:</p>
+                        <p className="header">RESET PASSWORD</p>
+                        <p className="nameInput">login:</p>
                         <MyInput 
                             type="text" 
-                            placeholder="логін" 
+                            placeholder="login" 
                             value={dataInputed.login} 
                             onChange={e => {                                    
                                 if(e.target.value.length - dataInputed.login.length < 0){
@@ -85,7 +86,7 @@ const ForgotPassword = () => {
                                 else if(e.target.value.length > 20){
                                     clearTimeout(curTimeoutID);
                                     e.target.style.outline = '1px red solid';
-                                    setErrorText("Максимальна довжина вашого логіна 20 символів");
+                                    setErrorText("The maximum length of your login is 20 characters");
                                     const id = setTimeout(()=>{setErrorText('')}, 2000);
                                     setCurTimeoutID(id);
                                     setTimeout(()=>{ e.target.style.outline = 'none';}, 1000);
@@ -96,21 +97,19 @@ const ForgotPassword = () => {
                                 else{
                                     clearTimeout(curTimeoutID);
                                     e.target.style.outline = '1px red solid';
-                                    setErrorText("Ви не можете ввести пробіли для вашого логіна а також ці символи: \\ / | : * " + '"' + " ' ` , ~ < > ");
+                                    setErrorText("You cannot enter spaces for your login and these characters: \\ / | : * " + '"' + " ' ` , ~ < > ");
                                     const id = setTimeout(()=>{setErrorText('')}, 2000);
                                     setCurTimeoutID(id);
                                     setTimeout(()=>{ e.target.style.outline = 'none'}, 1000);
                                 }
                             }}
                         />    
-                        <MyButton type='submit' onClick={sendPass}>Надіслати</MyButton>
+                        <MyButton type='submit' onClick={sendPass}>Send</MyButton>
                         {errorText && <p className="error">{errorText}</p>} 
-                        <p className="lastPartName">Згадали пароль?</p>
+                        <p className="lastPartName">Have you recalled the password?</p>
                         <div className="lastPart">
-                            <Link to="/login">Зайти в акаунт</Link>
+                            <Link to="/login">Log in</Link>
                         </div>
-                        
-                           
                     </div>   
                 }      
             </div>

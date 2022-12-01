@@ -14,14 +14,18 @@ import './Calendar.css';
 
 const Calendar = (props) => {
     const [modalActive, setModalActive] = useState(false);
-    const [typeOfDuration, setTypeOfDuration] = useState('Місяць');
+    const [typeOfDuration, setTypeOfDuration] = useState('Month');
     const [role, setRole] = useState('admin');
     const [isSearchedEvents, setIsSearchedEvents] = useState(false); 
     const [events, setEvents] = useState([]); 
     const [name, setName] = useState('');
+    const [isOwner, setIsOwner] = useState(false);
     const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: ''});
     const [fetchGetRole, isGetRole, getRoleError] = useFetching(async () => {
         const res = await PostService.getUserRole(localStorage.getItem('access'), window.location.pathname.slice(window.location.pathname.indexOf('calendars/') + 10));
+        if(res.data[0].role === 'owner'){
+            setIsOwner(true);
+        }
         if(res.data[0].role === 'owner' || res.data[0].role === 'admin'){
             setRole('admin');
         }
@@ -29,11 +33,13 @@ const Calendar = (props) => {
             setRole('user');
         }
     })
-    const [fetchEvents, isEventsLoading, eventsError] = useFetching(async () => {
+    const [fetchEvents, isEventsLoading, eventsError] = useFetching(async (category) => {
         const response = await PostService.getEventsByName(
             localStorage.getItem('access'), 
             +window.location.pathname.slice(window.location.pathname.indexOf('calendars/') + 10),
-            name);
+            name,
+            category
+            );
         let arr = [];
         for(let i = 0; i < response.data.length; i++){
             arr[i] = {id: response.data[i].id, title: response.data[i].title, description: response.data[i].description, date: new Date(response.data[i].execution_date),  type: response.data[i].type,  duration:  Math.ceil((response.data[i].duration / 3600) * 100) / 100};
@@ -45,8 +51,7 @@ const Calendar = (props) => {
         if(name.length >= 3){
             setIsSearchedEvents(true);
             fetchEvents();
-        }
-        
+        }   
     }
     useEffect(()=>{
         if(getRoleError || eventsError){
@@ -63,7 +68,7 @@ const Calendar = (props) => {
         return(
             <div className="loading-calendar">  
                 <div className="loading-test">
-                    <p>Відбувається завантаження даних. Зачекайте...</p>
+                    <p>Data is being loaded. Wait...</p>
                 </div>
                 <div className="loader-container">
                     <MyLoader />
@@ -84,7 +89,7 @@ const Calendar = (props) => {
                             name="roles" 
                             value={{value: typeOfDuration, label: typeOfDuration}}
                             isClearable={false}
-                            options={[{value: 'Тиждень', label: 'Тиждень'}, {value: 'Місяць', label: 'Місяць'}, {value: 'Рік', label: 'Рік'}]}
+                            options={[{value: 'Week', label: 'Week'}, {value: 'Month', label: 'Month'}, {value: 'Year', label: 'Year'}]}
                             onChange={(e)=>{setTypeOfDuration(e.value)}} 
                             theme={theme => ({
                                 ...theme,
@@ -106,10 +111,10 @@ const Calendar = (props) => {
                         />
                     </div>
                     <div className="search-container">
-                        <MySearch placeholder={"Введіть події, які ви хочете знайти"} value={name} onChange={e=> setName(e.target.value)} onClickSearch={searchEvents}/>
+                        <MySearch placeholder="Enter the events you want to find" value={name} onChange={e=> setName(e.target.value)} onClickSearch={searchEvents}/>
                     </div>
                     {role === 'admin' &&
-                        <MyButton onClick={()=>{setModalActive(2)}}>Створити подію</MyButton>
+                        <MyButton onClick={()=>{setModalActive(2)}}>Create an event</MyButton>
                     }
                 </div>
                 {isSearchedEvents &&
@@ -120,10 +125,10 @@ const Calendar = (props) => {
                         <div>
                             {events.length === 0 
                                 ?
-                                <p className="no-events-text">Немає таких подій у даному календарі :(</p>
+                                <p className="no-events-text">There are no such events in this calendar :(</p>
                                 :
                                 <div>
-                                    <p className="events-title">Події</p>
+                                    <p className="events-title">Events</p>
                                     <div className="events">
                                     {events.map(curEvent => 
                                             <OneEvent event={curEvent} key={curEvent.id} setModalActive={setModalActive} fetchEvents={fetchEvents} role={role} dataInputed={dataInputed} setDataInputed={setDataInputed} isSmall={true} typeCalendar={'ordinary'}/>
@@ -135,14 +140,38 @@ const Calendar = (props) => {
                         </div>
                     </div>
                 }
-                {typeOfDuration === 'Місяць' &&
-                    <Month modalActive={modalActive} setModalActive={setModalActive} role={role} typeOfDuration={typeOfDuration} typeCalendar={'ordinary'}/>
+                {typeOfDuration === 'Month' &&
+                    <Month 
+                        modalActive={modalActive} 
+                        setModalActive={setModalActive} 
+                        role={role} 
+                        typeOfDuration={typeOfDuration}
+                        typeCalendar={'ordinary'}
+                        fetchEventsByName={fetchEvents}
+                        isSearchedEvents={isSearchedEvents}
+                        isOwner={isOwner}
+                    />
                 }
-                {typeOfDuration === 'Тиждень' &&
-                    <Week modalActive={modalActive} setModalActive={setModalActive} role={role} typeOfDuration={typeOfDuration} typeCalendar={'ordinary'}/>
+                {typeOfDuration === 'Week' &&
+                    <Week 
+                        modalActive={modalActive} 
+                        setModalActive={setModalActive} 
+                        role={role} 
+                        typeOfDuration={typeOfDuration} 
+                        typeCalendar={'ordinary'} 
+                        fetchEventsByName={fetchEvents}
+                        isSearchedEvents={isSearchedEvents} 
+                        isOwner={isOwner}
+                    />
                 }
-                 {typeOfDuration === 'Рік' &&
-                    <Year modalActive={modalActive} setModalActive={setModalActive} role={role} setTypeOfDuration={setTypeOfDuration} typeOfDuration={typeOfDuration}/>
+                 {typeOfDuration === 'Year' &&
+                    <Year 
+                        modalActive={modalActive} 
+                        setModalActive={setModalActive} 
+                        role={role} 
+                        setTypeOfDuration={setTypeOfDuration} 
+                        typeOfDuration={typeOfDuration}
+                    />
                 }
                 
             </div>
@@ -152,9 +181,3 @@ const Calendar = (props) => {
 
 export default Calendar;
 
-//1) Тиждень/рік  ++DONE!
-//2) ГУГЛ АПІ НАЦ СВЯТА
-//3) Категорії до подій
-//4) Кольора для подій
-//5) Юзери для подій
-//6) Сеарч клієнта ++DONE!

@@ -18,9 +18,9 @@ const Subscriber = (props) => {
                 <p className='modal-one-user-role'>
                     {props.user.role === 'user' 
                         ?
-                        "Користувач"
+                        "User"
                         :
-                        "Адміністратор"     
+                        "Admin"     
                     } 
                 </p>
             </div>

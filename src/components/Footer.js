@@ -5,14 +5,14 @@ const Footer = () => {
     return (
         <div className="footer">
             <div className="left-part">
-                <img className="logo" src='https://cdn-icons-png.flaticon.com/128/7540/7540143.png' alt='logo'/>
+                <img className="logo" src='https://www.pngkey.com/png/full/18-180664_calendar-clock-comments-time-and-date-icon-png.png' alt='logo'/>
                 <div>
-                    <p>Usof</p>
-                    <p>Авторське право © 2022 DimarsM142. Всі права захищені</p>
+                    <p>Chronos</p>
+                    <p>Copyright © 2022 DimarsM142. All rights reserved</p>
                 </div>
             </div>
             <div className="right-part">
-                <p>Посилання на автора:</p>
+                <p>Link to the author:</p>
                 <nav>
                     <ul className="lastList">
                         <li><a href="https://t.me/d1mer0">

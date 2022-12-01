@@ -25,6 +25,7 @@
     border: 1px solid rgb(194, 194, 194);
     font-size: 18px;
     transition: 0.4s;
+    width: 14%;
 } 
 
 .year-container .one-calendar table .today{

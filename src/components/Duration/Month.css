@@ -80,9 +80,9 @@
 }
 
 .month-container .one-calendar table {
-    width: 100%;
     border-collapse: collapse;
     margin: auto;
+    width: 100%;
 }
 
 .month-container .one-calendar table th{
@@ -97,6 +97,7 @@
     padding: 10px 0vw 5vw 0vw;
     border: 1px solid rgb(194, 194, 194);
     font-size: 28px;
+    width: 14%;
     transition: 0.4s;
 } 
 
@@ -112,16 +113,48 @@
 .month-container .one-calendar table .today{
     border: 2px solid rgb(0, 95, 0);
 } 
+
 .month-container .one-calendar table .active{
     background-color: green;
     color: white;
 } 
+
 .month-container .one-calendar .fill-cell {
     cursor: pointer;
 }
+
 .month-container .one-calendar .fill-cell:hover{
    background-color: rgb(155, 206, 155);
 } 
+
+.month-container .up-part-categories {
+    border: 2px solid green;
+    border-radius: 10px;
+    font-size: 32px;
+
+    margin: 100px 20px 10px 20px;
+    text-align: center;
+}
+
+.month-container .categories {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 24px;
+}
+
+.month-container .categories p{
+    opacity: 0.5;
+    color: black;
+    text-transform: capitalize;
+    cursor: pointer;
+    
+}
+
+.month-container .categories .active{
+    opacity: 1;
+    color: green;
+}
 
 .loading-calendar{
     margin-top: 100px;

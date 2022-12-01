@@ -16,20 +16,18 @@ const CreateCalendar = (props) => {
     const someFoo = (e) => {
         e.preventDefault();
         if(props.dataInputed.title.length <= 6 || props.dataInputed.title.length > 20){
-            setError('Назва повинна містити більше 6 та менше 20 символів');
+            setError('The name must contain more than 6 and less than 20 characters');
             const id = setTimeout(()=>{setError('')}, 2000);
             setCurTimeoutID(id);
             return;
         }
         else if(props.dataInputed.description.length <= 6){
-            setError('Опис повинен містити більше 6 символів');
+            setError('The description must contain more than 6 characters');
             const id = setTimeout(()=>{setError('')}, 2000);
             setCurTimeoutID(id);
             return;
         }
         else{
-            
-            
             if(props.modalActive === 1) {
                 props.fetchCreateCalendar();
             }
@@ -48,10 +46,10 @@ const CreateCalendar = (props) => {
     <Modal modalActive={props.modalActive} setModalActive={props.setModalActive}>
         <div className="modal-window-calendar-create">
             <form onSubmit={someFoo}>
-                <p>Назва</p>
+                <p>Name</p>
                 <MyInput 
                     type="text" 
-                    placeholder="Назва" 
+                    placeholder="name" 
                     value={props.dataInputed.title} 
                     onChange={e => {
                         if(e.target.value.length - props.dataInputed.title.length < 0){
@@ -60,7 +58,7 @@ const CreateCalendar = (props) => {
                         else if(e.target.value.length > 20){
                             clearTimeout(curTimeoutID);
                             e.target.style.outline = '2px red solid';
-                            setError("Максимальна довжина вашого імені 20 символи");
+                            setError("The maximum length of your name is 20 characters");
                             const id = setTimeout(()=>{setError('')}, 2000);
                             setCurTimeoutID(id);
                             setTimeout(()=>{ e.target.style.outline = 'none';}, 1000);
@@ -70,14 +68,14 @@ const CreateCalendar = (props) => {
                         }
                     }}
                 />
-                <p className="title-desc">Опис</p>
-                <textarea placeholder="Введіть опис календаря..." value={props.dataInputed.description} onChange={e => {props.setDataInputed({...props.dataInputed, description: e.target.value});}}/>
+                <p className="title-desc">Description</p>
+                <textarea placeholder="Enter a description of the calendar..." value={props.dataInputed.description} onChange={e => {props.setDataInputed({...props.dataInputed, description: e.target.value});}}/>
                 {error && <p className="error">{error}</p>}
                 {props.modalActive === 1 
                     ?
-                    <MyButton type='submit'>Створити</MyButton>
+                    <MyButton type='submit'>Create</MyButton>
                     :
-                    <MyButton type='submit'>Змінити</MyButton>
+                    <MyButton type='submit'>Change</MyButton>
                 }
                 
             </form>

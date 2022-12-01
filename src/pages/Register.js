@@ -39,12 +39,12 @@ const Register = () => {
     useEffect(() =>{
         if(postError){
             if(postError.data.comment === "A user with this login already exists!"){
-                setError('Даний логін вже існує. Спробуйте інший');
+                setError('This login already exists. Try another one');
                 const id = setTimeout(()=>{setError('')}, 2000);
                 setCurTimeoutID(id);// eslint-disable-next-line
             }
             else if(postError.data.comment === "A user with this email already exists!"){
-                setError('Дана пошта вже зареєстрована. Спробуйте інший');
+                setError('This email already exists. Try another one');
                 const id = setTimeout(()=>{setError('')}, 2000);
                 setCurTimeoutID(id);
             }
@@ -57,28 +57,28 @@ const Register = () => {
     function sendPass(e){
         clearTimeout(curTimeoutID);
         e.preventDefault();
-        if(dataInputed.login.length <= 4){
-            setError('Введіть логін більше 4 символів');
+        if(dataInputed.login.length < 4){
+            setError('Enter a login with more than 4 characters');
             const id = setTimeout(()=>{setError('')}, 2000);
             setCurTimeoutID(id);
         }
         else if(dataInputed.password !== dataInputed.passwordConfirmation){
-            setError('Паролі не співпадають');
+            setError('Passwords do not match');
             const id = setTimeout(()=>{setError('')}, 2000);
             setCurTimeoutID(id);
         }
         else if(dataInputed.password.length < 8){
-            setError('Введіть пароль довжиною більше 8 символів');
+            setError('Enter a password longer than 8 characters');
             const id = setTimeout(()=>{setError('')}, 2000);
             setCurTimeoutID(id);
         }
         else if(!checkEmail(dataInputed.email)){
-            setError('Введіть існуючу адресу');
+            setError('Enter an existing address');
             const id = setTimeout(()=>{setError('')}, 2000);
             setCurTimeoutID(id);
         }
         else if(!dataInputed.fullName || dataInputed.fullName.length <= 8){
-            setError("Введіть ваше ім'я довше 8 символів");
+            setError("Your name must be longer than 8 characters");
             const id = setTimeout(()=>{setError('')}, 2000);
             setCurTimeoutID(id);
         }
@@ -94,8 +94,8 @@ const Register = () => {
             {isPostsLoading
                 ?
                 <div className="registerForm">
-                    <p className="header">РЕЄСТРАЦІЯ</p>
-                    <p className="loading-text">Відбувається надсилання даних. Зачекайте...</p>
+                    <p className="header">SIGN UP</p>
+                    <p className="loading-text">Data is being sent. Wait...</p>
                     <div className="loader">
                         <MyLoader />
                     </div>
@@ -105,19 +105,19 @@ const Register = () => {
                     {error === 'success' 
                         ?
                         <div className="registerForm">
-                            <p className="header">РЕЄСТРАЦІЯ</p>
+                            <p className="header">SIGN UP</p>
                             <div className="result-text">
-                                <p className="main-text">Акаунт успішно зареєстрований.</p>
-                                <p className="second-text">Тепер ви можете ввійти в свій акаунт.</p>
+                                <p className="main-text">Account successfully registered.</p>
+                                <p className="second-text">You can now log in to your account.</p>
                             </div> 
                         </div>
                         :
                         <div className="registerForm">
-                            <p className="header">РЕЄСТРАЦІЯ</p>
-                            <p className="nameInput">логін:</p>
+                            <p className="header">SIGN UP</p>
+                            <p className="nameInput">login:</p>
                             <MyInput 
                                 type="text" 
-                                placeholder="логін" 
+                                placeholder="login" 
                                 value={dataInputed.login} 
                                 onChange={e => {                                    
                                     if(e.target.value.length - dataInputed.login.length < 0){
@@ -126,7 +126,7 @@ const Register = () => {
                                     else if(e.target.value.length > 20){
                                         clearTimeout(curTimeoutID);
                                         e.target.style.outline = '1px red solid';
-                                        setError("Максимальна довжина вашого логіна 20 символів");
+                                        setError("The maximum length of your login is 20 characters");
                                         const id = setTimeout(()=>{setError('')}, 2000);
                                         setCurTimeoutID(id);
                                         setTimeout(()=>{ e.target.style.outline = 'none';}, 1000);
@@ -137,23 +137,23 @@ const Register = () => {
                                     else{
                                         clearTimeout(curTimeoutID);
                                         e.target.style.outline = '1px red solid';
-                                        setError("Ви не можете ввести пробіли для вашого логіна а також ці символи: \\ / | : * " + '"' + " ' ` , ~ < > ");
+                                        setError("You cannot enter spaces for your login and these characters: \\ / | : * " + '"' + " ' ` , ~ < > ");
                                         const id = setTimeout(()=>{setError('')}, 2000);
                                         setCurTimeoutID(id);
                                         setTimeout(()=>{ e.target.style.outline = 'none'}, 1000);
                                     }
                                 }}
                             />
-                            <p className="nameInput">пароль:</p>
+                            <p className="nameInput">password:</p>
                             <MyInput 
                                 type="password" 
-                                placeholder="пароль" 
+                                placeholder="password" 
                                 value={dataInputed.password} 
                                 onChange={e => {
                                     if(e.target.value.length > 32){
                                         clearTimeout(curTimeoutID);
                                         e.target.style.outline = '1px red solid';
-                                        setError("Максимальна довжина вашого пароля 32 символи");
+                                        setError("The maximum length of your password is 32 characters");
                                         const id = setTimeout(()=>{setError('')}, 2000);
                                         setCurTimeoutID(id);
                                         setTimeout(()=>{ e.target.style.outline = 'none';}, 1000);
@@ -163,16 +163,16 @@ const Register = () => {
                                     }
                                 }}
                             />
-                            <p className="nameInput">підтвердження пароля:</p>
+                            <p className="nameInput">password confirmation:</p>
                             <MyInput 
                                 type="password"
-                                placeholder="підтвердіть пароль" 
+                                placeholder="confirm password" 
                                 value={dataInputed.passwordConfirmation} 
                                 onChange={e => { 
                                     if(e.target.value.length > 32){
                                         clearTimeout(curTimeoutID);
                                         e.target.style.outline = '1px red solid';
-                                        setError("Максимальна довжина вашого пароля 32 символи");
+                                        setError("The maximum length of your password is 32 characters");
                                         const id = setTimeout(()=>{setError('')}, 2000);
                                         setCurTimeoutID(id);
                                         setTimeout(()=>{ e.target.style.outline = 'none';}, 1000);
@@ -183,10 +183,10 @@ const Register = () => {
                                     
                                 }}
                             />
-                            <p className="nameInput">електронна пошта:</p>
+                            <p className="nameInput">email:</p>
                             <MyInput 
                                 type="text" 
-                                placeholder="пошта" 
+                                placeholder="email" 
                                 value={dataInputed.email} 
                                 onChange={e => { 
                                     if(e.target.value.length - dataInputed.email.length < 0){
@@ -198,17 +198,17 @@ const Register = () => {
                                     else{
                                         clearTimeout(curTimeoutID);
                                         e.target.style.outline = '1px red solid';
-                                        setError("Дозволені символи для вводу електронної пошти: a-z, 0-9, _, -, .");
+                                        setError("Allowed characters for email input: a-z, 0-9, _, -, .");
                                         const id = setTimeout(()=>{setError('')}, 2000);
                                         setCurTimeoutID(id);
                                         setTimeout(()=>{ e.target.style.outline = 'none';}, 1000);
                                     }
                                 }}
                             />
-                            <p className="nameInput">повне ім'я:</p>
+                            <p className="nameInput">full name:</p>
                             <MyInput 
                                 type="text" 
-                                placeholder="повне ім'я" 
+                                placeholder="full name" 
                                 value={dataInputed.fullName} 
                                 onChange={e => {
                                     if(e.target.value.length - dataInputed.fullName.length < 0){
@@ -217,7 +217,7 @@ const Register = () => {
                                     else if(e.target.value.length > 42){
                                         clearTimeout(curTimeoutID);
                                         e.target.style.outline = '1px red solid';
-                                        setError("Максимальна довжина вашого ім'я 42 символів");
+                                        setError("The maximum length of your name is 42 characters");
                                         const id = setTimeout(()=>{setError('')}, 2000);
                                         setCurTimeoutID(id);
                                         setTimeout(()=>{ e.target.style.outline = 'none';}, 1000);
@@ -228,18 +228,18 @@ const Register = () => {
                                     else{
                                         clearTimeout(curTimeoutID);
                                         e.target.style.outline = '1px red solid';
-                                        setError("Ви не можете ввести для вашого іменці ці символи: \\ / | " + '"' + " ' `");
+                                        setError("You cannot enter these characters for your name: \\ / | " + '"' + " ' `");
                                         const id = setTimeout(()=>{setError('')}, 2000);
                                         setCurTimeoutID(id);
                                         setTimeout(()=>{ e.target.style.outline = 'none'}, 1000);
                                     }
                                 }}
                             />
-                            <MyButton type='submit' onClick={sendPass}>Зареєструватися</MyButton>
+                            <MyButton type='submit' onClick={sendPass}>Sign up</MyButton>
                             {error && <p className="error">{error}</p>}       
-                            <p className="lastPartName">Вже маєте акаунт?</p>
+                            <p className="lastPartName">You already have an account?</p>
                             <div className="lastPart">
-                                <Link to="/login">Зайти в акаунт</Link>
+                                <Link to="/login">Log in</Link>
                             </div>
                             
                         </div>   

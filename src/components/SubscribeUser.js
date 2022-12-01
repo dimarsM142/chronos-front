@@ -12,27 +12,27 @@ const SubscribeUser = (props) => {
             <Modal modalActive={props.showInputForSubsUser} setModalActive={props.setShowInputForSubsUser}>
                 <div className="modal-create-user">
                     <div className="modal-up-title-container">
-                        <p className="modal-title">Календар</p>
+                        <p className="modal-title">Calendar</p>
                         <p className="modal-calendar-name">{props.calendarTitle}</p>
                     </div>
                     <div className="modal-create-user-content">
                         <div className='modal-login-input'>
-                            <p>Логін користувача</p>
+                            <p>login:</p>
                             <MyInput 
                                 type="text"
-                                placeholder="Логін" 
+                                placeholder="login" 
                                 value={props.userInput}
                                 onChange={(e) =>props.handleLoginUserChange(e.target.value)}
                             />
                         </div>
                         <div className='modal-select-role'>
-                            <p>Роль нового користувача</p>
+                            <p>role:</p>
                             <Select 
                                 className='select-create' 
                                 name="roles" 
                                 value={{value: props.roleForSubsUser.value, label: props.roleForSubsUser.label}}
                                 isClearable={false}
-                                    options={[{value: 'user', label: 'Користувач'}, {value: 'admin', label: 'Адміністратор'}]}
+                                    options={[{value: 'user', label: 'User'}, {value: 'admin', label: 'Admin'}]}
                                     onChange={(e)=>{
                                         props.setRoleforSubsUser(e);
                                     }} 
@@ -58,7 +58,7 @@ const SubscribeUser = (props) => {
                             {props.error && <p className="error">{props.error}</p>} 
                             
                         </div>
-                        <MyButton onClick={props.subscribeUserToCalendar}>Запросити</MyButton>
+                        <MyButton onClick={props.subscribeUserToCalendar}>Invite</MyButton>
                     </div>   
             </Modal>
         </>

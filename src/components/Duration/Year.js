@@ -20,7 +20,7 @@ const Year = (props) => {
     const selectedDate = new Date(useSelector( (state) => state.cash.curDate));
 
     const activeDate = useSelector( (state) => state.cash.activeDate);
-    const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: ''});
+    const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: []});
     const year = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     
    
@@ -99,7 +99,7 @@ const Year = (props) => {
         return(
             <div className="loading-calendar">  
                 <div className="loading-test">
-                    <p>Відбувається завантаження даних. Зачекайте...</p>
+                    <p>Data is being loaded. Wait...</p>
                 </div>
                 <div className="loader-container">
                     <MyLoader />
@@ -113,7 +113,7 @@ const Year = (props) => {
 
         return (
             <div className="year-container">
-                <p className="up-part-title">Оберіть дату</p>
+                <p className="up-part-title">Select a date</p>
                 <div className="up-part">
                     <div onClick={monthLess}><i className="fa fa-caret-square-o-left" aria-hidden="true"></i></div>
                     <p className="current-date">{selectedDate.getFullYear() + " рік"} </p>
@@ -125,7 +125,6 @@ const Year = (props) => {
                         name="roles" 
                         value={{value: selectedDate.getFullYear(), label: selectedDate.getFullYear()}}
                         isClearable={false}
-                        placeholder='Категорії'
                         options={arrOfYear}
                         onChange={(e)=>{
                             let maxDate = (moment(`${e.value}-${selectedDate.getMonth() + 1}-10`).endOf('month')._d.getDate());
@@ -165,7 +164,7 @@ const Year = (props) => {
                 </div>
     
     
-                <p className="center-container-title">Календар</p>
+                <p className="center-container-title">Calendar</p>
                 <div className="center-container">
                     {year.map((month, index)=> <OneSmallMonth key={month} month={month} year={selectedDate.getFullYear()} setTypeOfDuration={props.setTypeOfDuration}/>)} 
                 </div>

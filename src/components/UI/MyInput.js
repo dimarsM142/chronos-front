@@ -11,7 +11,7 @@ function MyInput(props){
 		
 	}
 	const [passType, setPassType] = useState(props.type);
-	if(props.placeholder === 'пароль' || props.placeholder === 'підтвердіть пароль'){
+	if(props.placeholder === 'password' || props.placeholder === 'confirm password'){
 		return(
 			<div className='password'>	
 				<div className={classes.password}>

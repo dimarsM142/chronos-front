@@ -1,62 +1,32 @@
 function getNameMonth(index, type) {
-    if(type === 0){
+    if(type === 0 || type === 1){
         switch (index) {
             case 0:
-              return 'Січня';
+              return 'January';
             case 1:
-                return 'Лютого';
+                return 'February';
             case 2:
-                return 'Березня';
+                return 'March';
             case 3:
-                return 'Квітня';
+                return 'April';
             case 4:
-                return 'Травня';
+                return 'May';
             case 5:
-                return 'Червня';
+                return 'June';
             case 6:
-                return 'Липня';
+                return 'July';
             case 7:
-                return 'Серпня';
+                return 'August';
             case 8:
-                return 'Вересня';
+                return 'September';
             case 9:
-                return 'Жовтня';
+                return 'October';
             case 10:
-                return 'Листопада';
+                return 'November';
             case 11:
-                return 'Грудня';
+                return 'December';
             default:
-                return 'Найкращий';
-        }
-    }
-    else if(type === 1){
-        switch (index) {
-            case 0:
-              return 'Січень';
-            case 1:
-                return 'Лютий';
-            case 2:
-                return 'Березень';
-            case 3:
-                return 'Квітень';
-            case 4:
-                return 'Травень';
-            case 5:
-                return 'Червень';
-            case 6:
-                return 'Липень';
-            case 7:
-                return 'Серпень';
-            case 8:
-                return 'Вересень';
-            case 9:
-                return 'Жовтень';
-            case 10:
-                return 'Листопад';
-            case 11:
-                return 'Грудень';
-            default:
-                return 'Найкращий';
+                return 'Great';
         }
     }
 }

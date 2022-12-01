@@ -338,13 +338,11 @@
     } 
     
     .user-info > .user-data input{
-        width: 150px;
+        width: 220px;
         margin: auto;
     }
 
-    .user-info > .user-data input:focus{
-        width: 190px;
-    }
+
     .user-info > .user-data button{
         width: 270px;
         margin-top: 40px;
@@ -415,13 +413,10 @@
     } 
     
     .user-info > .user-data input{
-        width: 120px;
+        width: 160px;
         margin: auto;
     }
 
-    .user-info > .user-data input:focus{
-        width: 140px;
-    }
     .user-info > .user-data button{
         width: 120px;
         margin-top: 40px;
@@ -452,6 +447,7 @@
 
     .user-info .user-photo .input-file-desc {
         width: 200px;
+        font-size: 20px;
     }
     .user-info .buttons-delete {
         display: grid;

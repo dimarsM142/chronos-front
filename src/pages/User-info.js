@@ -112,12 +112,12 @@ const UserInfo = (props) => {
         if(changeUserError){
             
             if(changeUserError.data.message && changeUserError.data.message.sqlMessage && changeUserError.data.message.sqlMessage.includes("for key 'users.email'")){
-                setErrorText('Дана пошта вже зареєстрована. Спробуйте іншу');
+                setErrorText('This mail is already registered. Try another one');
                 const id = setTimeout(()=>{setErrorText('')}, 2000);
                 setCurTimeoutID(id);
             }
             else if(changeUserError.data.message && changeUserError.data.message.sqlMessage && changeUserError.data.message.sqlMessage.includes("for key 'users.login'")){
-                setErrorText('Даний логін вже існує. Спробуйте інший');
+                setErrorText('This login already exists. Try another one');
                 const id = setTimeout(()=>{setErrorText('')}, 2000);
                 setCurTimeoutID(id);
             }
@@ -135,18 +135,18 @@ const UserInfo = (props) => {
         e.preventDefault();
         clearTimeout(curTimeoutID);
         e.preventDefault();
-        if(info.login.length <= 4){
-            setErrorText('Введіть логін, дожвина якого більше 4 символів');
+        if(info.login.length < 4){
+            setErrorText('Enter a login that is longer than 4 characters');
             const id = setTimeout(()=>{setErrorText('')}, 2000);
             setCurTimeoutID(id);
         }
         else if(!checkEmail(info.email)){
-            setErrorText('Введіть існуючу адресу');
+            setErrorText('Enter an existing email');
             const id = setTimeout(()=>{setErrorText('')}, 2000);
             setCurTimeoutID(id);
         }
         else if(info.full_name.length <= 8){
-            setErrorText("Введіть ваше ім'я, дожвина якого більше 8 символів");
+            setErrorText("Enter your name, which is longer than 8 characters");
             const id = setTimeout(()=>{setErrorText('')}, 2000);
             setCurTimeoutID(id);
         }
@@ -167,7 +167,7 @@ const UserInfo = (props) => {
         e.preventDefault();
         if(e.target.files[0].type.indexOf('image')=== -1){
             setIsFilePicked(false);
-            setErrorPhoto('Неправильний тип файлу');
+            setErrorPhoto('Invalid file type');
             const id = setTimeout(()=>{setErrorPhoto('')}, 2000);
             setCurTimeoutID(id);
         }
@@ -183,7 +183,7 @@ const UserInfo = (props) => {
             fetchChangeAva();
         }
         else{
-            setErrorPhoto('Фото не обрано');
+            setErrorPhoto('No photo selected');
             const id = setTimeout(()=>{setErrorPhoto('')}, 2000);
             setCurTimeoutID(id);
         }
@@ -192,8 +192,8 @@ const UserInfo = (props) => {
         return (
             <div>
                 <div className="user-info">
-                    <p className="header">Зміна акаунту</p>
-                    <p className="loading-text">Відбувається надсилання або завантаження даних. Зачекайте...</p>
+                    <p className="header">Account change</p>
+                    <p className="loading-text">Data is being sent or downloaded. Wait...</p>
                     <div className="loader">
                         <MyLoader />
                     </div>
@@ -205,11 +205,11 @@ const UserInfo = (props) => {
         return (
             <div>
                 <div className="user-info">
-                    <p className="header">Зміна акаунту</p>
-                    <p className="deleting-text">Ви впевнені що хочете видалити акаунт?</p>
+                    <p className="header">Account change</p>
+                    <p className="deleting-text">Are you sure you want to delete the account?</p>
                     <div className="buttons-delete">
-                        <button className='stay' onClick={e=>{e.preventDefault(); setDeleteProfile(false)}}>Повернутись назад</button>
-                        <button className="delete-profile" onClick={e=>{e.preventDefault(); fetchDeleteUser();}}>Видалити акаунт</button>
+                        <button className='stay' onClick={e=>{e.preventDefault(); setDeleteProfile(false)}}>Go back</button>
+                        <button className="delete-profile" onClick={e=>{e.preventDefault(); fetchDeleteUser();}}>Delete account</button>
                     </div>
                 </div>
             </div>
@@ -221,16 +221,16 @@ const UserInfo = (props) => {
                 {successRes 
                     ?
                     <div className="user-info">
-                        <p className="header">Зміна акаунту</p>
+                        <p className="header">Account change</p>
                         <div className="result-text">
-                            <p className="main-text">Дані акаунту успішно змінені.</p>
-                            <p className="second-text">Зараз вас буде перенаправлено на основну сторінку.</p>
+                            <p className="main-text">Account details have been successfully changed.</p>
+                            <p className="second-text">You will now be redirected to the main page.</p>
                         </div> 
                     </div>
                     :
                     <div className="user-info">
-                        <p className="header">Зміна акаунту</p>
-                        <p className="user-info-title">Зміна фото профілю</p>
+                        <p className="header">Account change</p>
+                        <p className="user-info-title">Change profile photo</p>
                         <div className="user-photo">
                             <img src={pictureLink} alt="ava" className="ava-current"/>
                             <div className="input-container">
@@ -241,23 +241,23 @@ const UserInfo = (props) => {
                                     </span>
                                     {isFilePicked
                                         ?
-                                        <span className="input-file-text">Фото обрано</span>
+                                        <span className="input-file-text">Avatar selected</span>
                                         :
-                                        <span className="input-file-text">Обрати фото</span>
+                                        <span className="input-file-text">Select an avatar</span>
                                     }
                                     
                                 </label>
                             </div>
-                            <MyButton onClick={handleSubmission}>Завантажити фото</MyButton>
+                            <MyButton onClick={handleSubmission}>Upload an avatar</MyButton>
                             
                         </div>
                         {errorPhoto && <p className="error">{errorPhoto}</p>}
-                        <p className="user-info-title">Зміна даних акаунту</p>
+                        <p className="user-info-title">Changing account data</p>
                         <div className="user-data">
-                            <p className="user-info-name">логін:</p>
+                            <p className="user-info-name">login:</p>
                             <MyInput 
                                 type="text"
-                                placeholder="логін" 
+                                placeholder="login" 
                                 value={info.login} 
                                 onChange={e => {                                    
                                     if(e.target.value.length - info.login.length < 0){
@@ -266,7 +266,7 @@ const UserInfo = (props) => {
                                     else if(e.target.value.length > 20){
                                         clearTimeout(curTimeoutID);
                                         e.target.style.outline = '1px red solid';
-                                        setErrorText("Максимальна довжина вашого логіна 20 символів");
+                                        setErrorText("The maximum length of your login is 20 characters");
                                         const id = setTimeout(()=>{setErrorText('')}, 2000);
                                         setCurTimeoutID(id);
                                         setTimeout(()=>{ e.target.style.outline = 'none';}, 1000);
@@ -277,17 +277,17 @@ const UserInfo = (props) => {
                                     else{
                                         clearTimeout(curTimeoutID);
                                         e.target.style.outline = '1px red solid';
-                                        setErrorText("Ви не можете ввести пробіли для вашого логіна а також ці символи: \\ / | ? : * " + '"' + " ' ` , ~ < > ");
+                                        setErrorText("You cannot enter spaces for your login and these characters: \\ / | ? : * " + '"' + " ' ` , ~ < > ");
                                         const id = setTimeout(()=>{setErrorText('')}, 2000);
                                         setCurTimeoutID(id);
                                         setTimeout(()=>{ e.target.style.outline = 'none'}, 1000);
                                     }
                                 }}
                             /> 
-                            <p className="user-info-name">електронна пошта:</p>
+                            <p className="user-info-name">email:</p>
                             <MyInput 
                                 type="text"
-                                placeholder="пошта" 
+                                placeholder="email" 
                                 value={info.email} 
                                 onChange={e => { 
                                     if(e.target.value.length - info.email.length < 0){
@@ -299,17 +299,17 @@ const UserInfo = (props) => {
                                     else{
                                         clearTimeout(curTimeoutID);
                                         e.target.style.outline = '1px red solid';
-                                        setErrorText("Дозволені символи для вводу електронної пошти: a-z, 0-9, _, -, .");
+                                        setErrorText("Allowed characters for email input: a-z, 0-9, _, -, .");
                                         const id = setTimeout(()=>{setErrorText('')}, 2000);
                                         setCurTimeoutID(id);
                                         setTimeout(()=>{ e.target.style.outline = 'none';}, 1000);
                                     }
                                 }}
                             /> 
-                            <p className="user-info-name">повне ім'я:</p>
+                            <p className="user-info-name">full name:</p>
                             <MyInput 
                                 type="text"
-                                placeholder="повне ім'я" 
+                                placeholder="full name" 
                                 value={info.full_name} 
                                 onChange={e => {
                                     if(e.target.value.length - info.full_name.length < 0){
@@ -318,7 +318,7 @@ const UserInfo = (props) => {
                                     else if(e.target.value.length > 42){
                                         clearTimeout(curTimeoutID);
                                         e.target.style.outline = '1px red solid';
-                                        setErrorText("Максимальна довжина вашого ім'я 42 символів");
+                                        setErrorText("The maximum length of your name is 42 characters");
                                         const id = setTimeout(()=>{setErrorText('')}, 2000);
                                         setCurTimeoutID(id);
                                         setTimeout(()=>{ e.target.style.outline = 'none';}, 1000);
@@ -329,19 +329,19 @@ const UserInfo = (props) => {
                                     else{
                                         clearTimeout(curTimeoutID);
                                         e.target.style.outline = '1px red solid';
-                                        setErrorText("Ви не можете ввести для вашого іменці ці символи: \\ / | " + '"' + " ' `");
+                                        setErrorText("You cannot enter these characters for your name: \\ / | " + '"' + " ' `");
                                         const id = setTimeout(()=>{setErrorText('')}, 2000);
                                         setCurTimeoutID(id);
                                         setTimeout(()=>{ e.target.style.outline = 'none'}, 1000);
                                     }
                                 }}
                             /> 
-                            <MyButton onClick={changeData}>Змінити</MyButton>
+                            <MyButton onClick={changeData}>Change</MyButton>
                         </div>
                         {errorText && <p className="error">{errorText}</p>}
                         
                         <div className="delete-button-container">
-                            <button onClick={deleteYourAccount}>Видалити акаунт</button>
+                            <button onClick={deleteYourAccount}>Delete account</button>
                         </div>
                     </div>
                 }

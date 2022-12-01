@@ -3,11 +3,7 @@ import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import { addDateAction, addActiveAction } from "../store/dateReducer";
 import getNameMonth from "./getNameMonth";
-import getNameEvent from "./getNameEvent";
 
-import PostService from "../API/PostService";
-import { useFetching } from "../hooks/useFetching";
-import { useNavigate } from "react-router-dom";
 import './One-small-month.css';
 
 function monthFormated(date){
@@ -45,7 +41,7 @@ function monthFormated(date){
 const OneSmallMonth = (props) => {
     const dispatch = useDispatch();
     const selectedDate = new Date(useSelector( (state) => state.cash.curDate));
-    const weeks = ["Пнд", "Втр", "Срд", "Чтв", "Птн", "Сбт", "Ндл"];
+    const weeks = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     const [month, setMonth] = useState([undefined, undefined, undefined, undefined, undefined, undefined]);
 
 
@@ -56,7 +52,7 @@ const OneSmallMonth = (props) => {
         let updatedDate = new Date(props.year, props.month, e.target.textContent, +new Date().getHours(), +new Date().getMinutes(), +new Date().getSeconds());
         dispatch(addDateAction(updatedDate.getTime()));
         dispatch(addActiveAction(updatedDate));
-        props.setTypeOfDuration('Місяць');
+        props.setTypeOfDuration('Month');
     }
     return (
         <div className="one-small-event">

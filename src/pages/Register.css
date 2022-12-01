@@ -63,7 +63,7 @@
 
     padding: 0;
     margin: 0;
-    margin-left: 35px;
+    margin-left: 40px;
     font-size: 18px;
     color: black;
 }
@@ -137,10 +137,7 @@
     }
     
     .registerForm input {
-        width: 150px;
-    }
-    .registerForm input:focus {
-        width: 200px;
+        width: 185px;
     }
     .registerForm > button {
         width: 180px;
@@ -168,10 +165,7 @@
     }
     
     .registerForm input {
-        width: 100px;
-    }
-    .registerForm input:focus {
-        width: 120px;
+        width: 145px;
     }
     .registerForm > button {
         width: 180px;
@@ -179,10 +173,11 @@
         margin-top: 40px;
     }
     .registerForm .nameInput {
-        margin-left: 35px;
+        margin-left: 20px;
+        font-size: 16px;
     }
     .registerForm .password svg{
-        margin-left: 120px;
+        margin-left: 134px;
     }
     .registerForm > .error{
         width: 200px;

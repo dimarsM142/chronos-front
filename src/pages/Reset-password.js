@@ -23,17 +23,17 @@ const PasswordReset = () => {
     useEffect(() =>{
         if(postError){
             if(postError.data.comment === 'Token expired!'){
-                setErrorText('Час вичерпався. Спробуйте ще раз надіслати дані.');
+                setErrorText('Time is up. Try sending the data again.');
                 const id = setTimeout(()=>{setErrorText('')}, 2000);
                 setCurTimeoutID(id);
             }
             else if(postError.data.comment === 'Incorrect token!'){
-                setErrorText('Ви перейшли за поганим посиланням. Спробуйте ще раз надіслати дані.');
+                setErrorText('You have followed a bad link. Try sending the data again.');
                 const id = setTimeout(()=>{setErrorText('')}, 2000);
                 setCurTimeoutID(id);
             }
             else {
-                //router('/error');
+                router('/error');
             }
         }
     }, [postError]);
@@ -42,7 +42,7 @@ const PasswordReset = () => {
         e.preventDefault();
         clearInterval(curTimeoutID);
         if(dataInputed.password.length < 8){
-            setErrorText('Введіть пароль довжиною більше 8 символів');
+            setErrorText('Enter a password longer than 8 characters');
             const id = setTimeout(()=>{setErrorText('')}, 2000);
             setCurTimeoutID(id);
             return;
@@ -53,10 +53,10 @@ const PasswordReset = () => {
     if(errorText === 'success'){
         return (
             <div className="resetForm">
-                <p className="header">ЗМІНА ПАРОЛЯ</p>
+                <p className="header">RESET PASSWORD</p>
                 <div className="result-text">
-                    <p className="main-text">Пароль успішно змінено.</p>
-                    <p className="second-text">Зараз ви автоматично перейдете на сторінку для входу в акаунт. Введіть ваш логін та новий пароль</p>
+                    <p className="main-text">Password changed successfully.</p>
+                    <p className="second-text">Now you will automatically go to the account login page. Enter there your login and new password</p>
                 </div>
             </div>
         );
@@ -67,25 +67,25 @@ const PasswordReset = () => {
                 {isPostsLoading
                     ?
                     <div className="resetForm">
-                    <p className="header">ЗМІНА ПАРОЛЯ</p>
-                    <p className="loading-text">Відбувається надсилання даних. Зачекайте...</p>
+                    <p className="header">RESET PASSWORD</p>
+                    <p className="loading-text">Data is being sent. Wait...</p>
                     <div className="loader">
                         <MyLoader />
                     </div>
                 </div>
                     :
                     <div className="resetForm">
-                        <p className="header">ЗМІНА ПАРОЛЯ</p>
-                        <p className="nameInput">новий пароль:</p>
+                        <p className="header">RESET PASSWORD</p>
+                        <p className="nameInput">new password:</p>
                         <MyInput 
                             type="password" 
-                            placeholder="пароль" 
+                            placeholder="password" 
                             value={dataInputed.password} 
                             onChange={e => {
                                 if(e.target.value.length > 32){
                                     clearTimeout(curTimeoutID);
                                     e.target.style.outline = '1px red solid';
-                                    setErrorText("Максимальна довжина вашого пароля 32 символи");
+                                    setErrorText("The maximum length of your password is 32 characters");
                                     const id = setTimeout(()=>{setErrorText('')}, 2000);
                                     setCurTimeoutID(id);
                                     setTimeout(()=>{ e.target.style.outline = 'none'}, 1000);
@@ -95,11 +95,11 @@ const PasswordReset = () => {
                                 }
                             }}
                         />    
-                        <MyButton type='submit' onClick={sendPass}>Надіслати</MyButton>
+                        <MyButton type='submit' onClick={sendPass}>Send</MyButton>
                         {errorText && <p className="error">{errorText}</p>}
-                        <p className="lastPartName">Виникла помилка? Спробуйте надіслати ще раз</p>
+                        <p className="lastPartName">Got an error? Try sending again</p>
                         <div className="lastPart" >
-                            <Link to="/forgot-password">Змінити пароль</Link> 
+                            <Link to="/forgot-password">Input login again</Link> 
                         </div>        
                     </div>   
                 }
