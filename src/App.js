@@ -102,7 +102,6 @@ function App() {
                     <Route path="/error" element={<Error />} />
                     <Route path="/login" element={<Login auth={auth} setAuth={setAuth} refreshToken={createRefresh}/>} />
                     <Route path="/forgot-password/:token" element={<ResetPassword auth={auth} setAuth={setAuth} refreshToken={createRefresh}/>} />
-                    <Route path="*" element={<Navigate to="/login" replace />} />
                 </Routes>
             }
            <Footer />
