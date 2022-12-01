@@ -445,7 +445,7 @@ const Week = (props) => {
                     </div>
                     {activeDate !== null &&
                             <div className="event-container">
-                                {activeDate.getTime() >= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours() % 2 === 0 ? new Date().getHours() : new Date().getHours() + 1).getTime() &&  
+                                {activeDate.getTime() >= new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours() % 2 === 0 ? new Date().getHours() : new Date().getHours() - 1).getTime() &&  
                                     <div>
                                         {props.role === 'admin' &&
                                             <MyButton onClick={()=>{props.setModalActive(1)}}>Create new event</MyButton>
