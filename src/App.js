@@ -9,7 +9,6 @@ import Footer from "./components/Footer.js";
 import { privateRoutes, publicRoutes, adminRoutes } from "./router";
 import PostService from "./API/PostService";
 import { useFetching } from "./hooks/useFetching";
-import ResetPassword from "./pages/Reset-password";
 function App() {
     const [timerID, setTimerID] = useState('');
     const[auth, setAuth] = useState(localStorage.getItem('isAuth') === 'false' ? false : true);
@@ -101,7 +100,7 @@ function App() {
                     <Route path="/" element={<Navigate to="/login" replace />} />
                     <Route path="/error" element={<Error />} />
                     <Route path="/login" element={<Login auth={auth} setAuth={setAuth} refreshToken={createRefresh}/>} />
-                    <Route path="/forgot-password/:token" element={<ResetPassword auth={auth} setAuth={setAuth} refreshToken={createRefresh}/>} />
+                    <Route path="*" element={<Navigate to="/login" replace />} />
                 </Routes>
             }
            <Footer />

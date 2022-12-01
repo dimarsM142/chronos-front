@@ -1,8 +1,9 @@
 import UserInfo from "../pages/User-info";
 
 import ForgotPassword from "../pages/Forgot-password";
+import Login from "../pages/Login";
 import Register from "../pages/Register";
-
+import PasswordReset from "../pages/Reset-password";
 
 import Users from '../adminPages/Admin-checkUsers';
 import OneUser from '../adminPages/Admin-checkOneUser';
@@ -37,6 +38,8 @@ export const adminRoutes = [
 
 
 export const publicRoutes = [
+    {path:'/login', element: Login},
     {path:'/register', element: Register},
     {path:'/forgot-password', element: ForgotPassword},
+    {path:'/forgot-password/:token', element: PasswordReset}
 ];
