@@ -410,11 +410,11 @@ const Week = (props) => {
                                             <tr className="row-calendar" key={indexOfArr}>
                                                 {week.map((time, index) =>
                                                     
-                                                    
-                                                    (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + (curWeek[index].toString().length === 1 ? '0' + curWeek[index] : curWeek[index]) + time) === 
+                                                    activeDate !== null && curWeek[index] && 
+                                                    ((getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + (curWeek[index].toString().length === 1 ? '0' + curWeek[index] : curWeek[index]) + time) === 
                                                     (new Date().getFullYear().toString() + new Date().getMonth() + (new Date().getDate().toString().length === 1 ? '0' + new Date().getDate() : new Date().getDate()) + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) ||  
                                                     (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + (curWeek[index].toString().length === 1 ? '0' + curWeek[index] : curWeek[index]) + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))) === 
-                                                    (new Date().getFullYear().toString() + new Date().getMonth() + (new Date().getDate().toString().length === 1 ? '0' + new Date().getDate() : new Date().getDate()) + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) 
+                                                    (new Date().getFullYear().toString() + new Date().getMonth() + (new Date().getDate().toString().length === 1 ? '0' + new Date().getDate() : new Date().getDate()) + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())))
                                                         ?
                                                         activeDate !== null && curWeek[index] && 
                                                         ((curWeek[index].toString() + time === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours() : activeDate.getHours())) || 
