@@ -41,9 +41,9 @@ const OneEvent = (props) => {
             },50);
         }
     },[deleteEventError]);
-
+    console.log(props.event);
     return (
-        <div className={"one-event type-" + props.event.color} onClick={()=>{props.typeCalendar === 'ordinary' && router(`/calendars/${window.location.pathname.slice(window.location.pathname.indexOf('calendars/') + 10)}/events/${props.event.id}`)}}>
+        <div className={props.event.type === 'holiday' ? 'one-event type-holiday' : "one-event type-" + props.event.color} onClick={()=>{props.typeCalendar === 'ordinary' && router(`/calendars/${window.location.pathname.slice(window.location.pathname.indexOf('calendars/') + 10)}/events/${props.event.id}`)}}>
             <p className="title">{props.event.title}</p>
             <p className="type">{getNameEvent(props.event.type)}</p>
             {props.isSmall 
