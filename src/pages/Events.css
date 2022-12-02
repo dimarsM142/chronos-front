@@ -17,23 +17,35 @@
     margin: 0px 40px;
 }
 
-.event-container .one-type-arrangement {
-    border: 3px solid rgb(79, 79, 160);
-    color: rgb(79, 79, 160);
-
+.event-container .one-type-red {
+    border: 3px solid rgb(163, 0, 0);
+    color: rgb(163, 0, 0);
 }
 
-.event-container .one-type-task {
-    border: 3px solid rgb(76, 165, 110);
-    color: rgb(76, 165, 110);
+.event-container .one-type-orange {
+    border: 3px solid rgb(202, 108, 0);
+    color: rgb(202, 108, 0);
 }
 
-.event-container .one-type-reminder {
+.event-container .one-type-green {
+    border: 3px solid rgb(63, 141, 0);
+    color: rgb(63, 141, 0);
+}
+
+.event-container .one-type-purple {
     border: 3px solid rgb(139, 48, 132);
     color: rgb(139, 48, 132);
-    
 }
 
+.event-container .one-type-darkblue {
+    border: 3px solid rgb(0, 66, 141);
+    color: rgb(0, 66, 141);
+}
+
+.event-container .one-type-blue {
+    border: 3px solid rgb(0, 152, 199);
+    color: rgb(0, 152, 199);
+}
 
 .event-container .one-event-small .title {
     grid-area: title;
@@ -251,19 +263,28 @@
 }
 
 
-.event-container .one-type-arrangement .category p:last-child {
-
-    background-color: rgb(79, 79, 160);
-
-
+.event-container .one-type-red .category p:last-child {
+    background-color: rgb(163, 0, 0);
 }
 
-.event-container .one-type-task .category p:last-child {
-    background-color: rgb(76, 165, 110);
+.event-container .one-type-orange .category p:last-child {
+    background-color: rgb(202, 108, 0);
 }
 
-.event-container .one-type-reminder .category p:last-child {
-    background-color: rgb(139, 48, 132);    
+.event-container .one-type-green .category p:last-child {
+    background-color: rgb(63, 141, 0);
+}
+
+.event-container .one-type-purple .category p:last-child {
+    background-color: rgb(139, 48, 132);
+}
+
+.event-container .one-type-darkblue .category p:last-child {
+    background-color: rgb(0, 66, 141);
+}
+
+.event-container .one-type-blue .category p:last-child {
+    background-color: rgb(0, 152, 199);
 }
 
 @media screen and (min-width:620px) and (max-width:900px) {

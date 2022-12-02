@@ -20,7 +20,7 @@ const Year = (props) => {
     const selectedDate = new Date(useSelector( (state) => state.cash.curDate));
 
     const activeDate = useSelector( (state) => state.cash.activeDate);
-    const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: []});
+    const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work', color: 'red'});
     const year = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     
    
@@ -36,7 +36,10 @@ const Year = (props) => {
             dataInputed.hours.toString().length === 1 ? '0' + dataInputed.hours : dataInputed.hours}:${
             dataInputed.minutes.toString().length === 1 ? '0' + dataInputed.minutes : dataInputed.minutes}:00.00`,
             dataInputed.type, 
-            dataInputed.duration
+            dataInputed.duration,
+            dataInputed.category,
+            dataInputed.users.join(','),
+            dataInputed.color
         );
     })
     

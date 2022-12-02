@@ -105,7 +105,7 @@ const Week = (props) => {
     const dispatch = useDispatch();
     const selectedDate = new Date(useSelector( (state) => state.cash.curDate));
     const activeDate = useSelector( (state) => state.cash.activeDate);
-    const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours: props.typeOfDuration === 'Week' ? selectedDate.getHours() : new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work'});
+    const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours: props.typeOfDuration === 'Week' ? selectedDate.getHours() : new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work', color: 'red'});
 
     const [events, setEvents] = useState([]); 
     const [dateEvents, setDateEvents] = useState([]);
@@ -125,7 +125,7 @@ const Week = (props) => {
                 category
             );
             for(let i = 0; i < response.data.length; i++){
-                arr[i] = {id: response.data[i].id, title: response.data[i].title, description: response.data[i].description, date: new Date(response.data[i].execution_date),  type: response.data[i].type,  duration:  Math.ceil((response.data[i].duration / 3600) * 100) / 100, category: response.data[i].category, login: response.data[i].login};
+                arr[i] = {id: response.data[i].id, title: response.data[i].title, description: response.data[i].description, date: new Date(response.data[i].execution_date),  type: response.data[i].type,  duration:  Math.ceil((response.data[i].duration / 3600) * 100) / 100, category: response.data[i].category, login: response.data[i].login, color: response.data[i].color};
                 arrOfDates[i] = arr[i].date.getDate().toString() + (arr[i].date.getHours().toString().length === 1 ? '0' + arr[i].date.getHours(): arr[i].date.getHours());
             }
             
@@ -157,8 +157,10 @@ const Week = (props) => {
             dataInputed.type, 
             dataInputed.duration,
             dataInputed.category,
-            dataInputed.users.join(',')
+            dataInputed.users.join(','),
+            dataInputed.color
         );
+        setDataInputed({id: '', title: '', description:'', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work', color: 'red'});
         fetchEvents();
     })
     
@@ -177,8 +179,10 @@ const Week = (props) => {
             dataInputed.type, 
             dataInputed.duration,
             dataInputed.category,
-            dataInputed.users.join(',')
+            dataInputed.users.join(','),
+            dataInputed.color
         );
+        setDataInputed({id: '', title: '', description:'', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work', color: 'red'});
         fetchEvents();
     })
     useEffect(()=>{
@@ -252,8 +256,6 @@ const Week = (props) => {
             setCategory(e.target.textContent);
         }
     }
-
-
 
     if(props.typeCalendar === 'ordinary') {
         if(isEventsLoading || isChangeEventLoading || isCreateEventLoading){

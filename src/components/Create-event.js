@@ -83,7 +83,7 @@ const CreateEvent = (props) => {
             
         }
         else if( props.modalActive === false) {
-            props.setDataInputed({id: '', title: '', description:'', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work'});
+            props.setDataInputed({id: '', title: '', description:'', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work', color: 'red'});
             setUsers({value: '', label: ''});
             setStartSelectedUsers([{value: '', label: ''}]);
             setIsDatePicked(false);
@@ -193,7 +193,7 @@ const CreateEvent = (props) => {
             
         }
     },[getSubscribeUserError, getSubscribeUserToEventError])
-
+    console.log(props.dataInputed);
     return(
         <Modal modalActive={props.modalActive} setModalActive={props.setModalActive}>
             {isGetUserSubscribe
@@ -358,6 +358,17 @@ const CreateEvent = (props) => {
                                         })}
                                     />
                                 </div>
+                                <div className="color-container">
+                                    <p className="color-title">Select color</p>
+                                    <div className="color-content">
+                                        <div className={props.dataInputed.color === 'red' ? "red active": 'red'} onClick={() => {props.dataInputed.color !=='red' ? props.setDataInputed({...props.dataInputed, color: 'red'}):''}}>0</div>
+                                        <div className={props.dataInputed.color === 'orange' ? "orange active": 'orange'} onClick={() => {props.dataInputed.color !=='orange' ? props.setDataInputed({...props.dataInputed, color: 'orange'}):''}}>0</div>
+                                        <div className={props.dataInputed.color === 'green' ? "green active": 'green'} onClick={() => {props.dataInputed.color !=='green' ? props.setDataInputed({...props.dataInputed, color: 'green'}):''}}>0</div>
+                                        <div className={props.dataInputed.color === 'blue' ? "blue active": 'blue'} onClick={() => {props.dataInputed.color !=='blue' ? props.setDataInputed({...props.dataInputed, color: 'blue'}):''}}>0</div>
+                                        <div className={props.dataInputed.color === 'darkblue' ? "darkblue active": 'darkblue'} onClick={() => {props.dataInputed.color !=='darkblue' ? props.setDataInputed({...props.dataInputed, color: 'darkblue'}):''}}>0</div>
+                                        <div className={props.dataInputed.color === 'purple' ? "purple active": 'purple'} onClick={() => {props.dataInputed.color !=='purple' ? props.setDataInputed({...props.dataInputed, color: 'purple'}):''}}>0</div>
+                                    </div>
+                                </div>
                                 {props.dataInputed.type === 'arrangement' &&
                                     <div className="invited-container">
                                         <p>Invited</p>    
@@ -405,7 +416,7 @@ const CreateEvent = (props) => {
                                             if(e.target.value.length - props.dataInputed.hours.length < 0){
                                                 props.setDataInputed({...props.dataInputed, hours: e.target.value});
                                             }
-                                            else if(!e.target.value || e.target.value[e.target.value.length - 1].match(/\d/)) {
+                                            else if(!e.target.value || (e.target.value.match(/^\d*$/) !== null)) {
                                                 if(+e.target.value >= 24){
                                                     props.setDataInputed({...props.dataInputed, hours: '23'});
                                                     
@@ -437,7 +448,7 @@ const CreateEvent = (props) => {
                                             if(e.target.value.length - props.dataInputed.minutes.length < 0){
                                                 props.setDataInputed({...props.dataInputed, minutes: e.target.value});
                                             }
-                                            else if(!e.target.value || e.target.value[e.target.value.length - 1].match(/\d/)) {
+                                            else if(!e.target.value || (e.target.value.match(/^\d*$/) !== null)) {
                                                 if(+e.target.value >= 59){
                                                     props.setDataInputed({...props.dataInputed, minutes: '59'});
                                                     
@@ -493,13 +504,14 @@ const CreateEvent = (props) => {
                                     <div className="duration-container">
                                         <p>Duration (hours)</p>    
                                         <MyInput 
-                                            type="text" 
+                                            type="text"
+                                            placeholder="duration" 
                                             value={props.dataInputed.duration} 
                                             onChange={e => {
                                                 if(e.target.value.length - props.dataInputed.duration.length < 0){
                                                     props.setDataInputed({...props.dataInputed, duration: e.target.value});
                                                 }
-                                                else if(!e.target.value || e.target.value[e.target.value.length - 1].match(/[\d|.]/)) {
+                                                else if(!e.target.value || e.target.value.match(/^\d*\.?\d*$/)) {
                                                     if(+e.target.value >= 12){
                                                         props.setDataInputed({...props.dataInputed, duration: '12'});
                                                         e.target.blur();
@@ -540,3 +552,5 @@ const CreateEvent = (props) => {
 }
 
 export default CreateEvent;
+
+//activeDATE НЕПАРНА ГОДИНА! 2)КОЛИ ВИДАЛЯЄЩ _ ЛОАДЕР МАЄ БУТИ!

@@ -64,7 +64,7 @@ const Month = (props) => {
     const dispatch = useDispatch();
     const selectedDate = new Date(useSelector( (state) => state.cash.curDate));
     const activeDate = useSelector( (state) => state.cash.activeDate);
-    const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work'});
+    const [dataInputed, setDataInputed] = useState({id: '', title: '', description: '', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work', color: 'red'});
     const [category, setCategory] = useState('all');
     const [month, SetMonth] = useState([undefined, undefined, undefined, undefined, undefined, undefined]);
     const [events, setEvents] = useState([]); 
@@ -80,10 +80,11 @@ const Month = (props) => {
                 (selectedDate.getMonth() + 1).toString().length === 1 ? '0' + (selectedDate.getMonth() + 1): selectedDate.getMonth() + 1,
                 category
             );
+            console.log(response);
             let arr = [];
             let arrOfDates = [];
             for(let i = 0; i < response.data.length; i++){
-                arr[i] = {id: response.data[i].id, title: response.data[i].title, description: response.data[i].description, date: new Date(response.data[i].execution_date),  type: response.data[i].type,  duration:  Math.ceil((response.data[i].duration / 3600) * 100) / 100, category: response.data[i].category, login: response.data[i].login};
+                arr[i] = {id: response.data[i].id, title: response.data[i].title, description: response.data[i].description, date: new Date(response.data[i].execution_date),  type: response.data[i].type,  duration:  Math.ceil((response.data[i].duration / 3600) * 100) / 100, category: response.data[i].category, login: response.data[i].login, color: response.data[i].color};
                 arrOfDates[i] = arr[i].date.getDate();
             }
             setDateEvents(arrOfDates);
@@ -120,8 +121,10 @@ const Month = (props) => {
             dataInputed.type, 
             dataInputed.duration,
             dataInputed.category,
-            dataInputed.users.join(',')
+            dataInputed.users.join(','),
+            dataInputed.color
         );
+        setDataInputed({id: '', title: '', description:'', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work', color: 'red'});
         fetchEvents();
     })
     
@@ -140,8 +143,10 @@ const Month = (props) => {
             dataInputed.type, 
             dataInputed.duration,
             dataInputed.category,
-            dataInputed.users.join(',')
+            dataInputed.users.join(','),
+            dataInputed.color
         );
+        setDataInputed({id: '', title: '', description:'', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work', color: 'red'});
         fetchEvents();
     })
     useEffect(()=>{

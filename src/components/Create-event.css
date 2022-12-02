@@ -184,6 +184,73 @@
     margin-left: 100px;
 }
 
+.modal-window-with-date .color-container{
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.modal-window-with-date .color-container p{
+    margin-left: 105px;
+    margin-bottom: 10px;
+}
+
+.modal-window-with-date .color-container .color-content {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-window-with-date .color-container .color-content div{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 20px;
+    border-radius: 50px;
+    border: 2px solid rgb(134, 134, 134);
+    cursor: pointer;
+    padding: 0px 8px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+}
+
+.modal-window-with-date .color-container .color-content .red {
+    background-color: red;
+    color: red;
+}
+
+.modal-window-with-date .color-container .color-content .orange {
+    background-color: orange;
+    color: orange;
+}
+
+.modal-window-with-date .color-container .color-content .green {
+    background-color: rgb(0, 255, 0);
+    color: rgb(0, 255, 0);
+}
+
+.modal-window-with-date .color-container .color-content .purple {
+    background-color: purple;
+    color: purple;
+}
+
+.modal-window-with-date .color-container .color-content .darkblue {
+    background-color: blue;
+    color: blue;
+}
+
+.modal-window-with-date .color-container .color-content .blue {
+    background-color: rgb(0, 195, 255);
+    color: rgb(0, 195, 255);
+}
+
+.modal-window-with-date .color-container .color-content .active{
+    border: 3px solid rgb(239, 243, 0);
+    box-shadow: 1px 2px 4px;
+}
+
+
 .create-event .loading .modal-up-title-container{
     display: flex;
     justify-content: center;
@@ -242,6 +309,10 @@
         margin-left: 60px;
     }
     
+    .modal-window-with-date .color-container p{
+        margin-left: 55px;
+    }
+
     
 }
 
@@ -283,6 +354,11 @@
     .modal-window-with-date .category-container p {
         margin-left: -10px;
     }
+    
+    .modal-window-with-date .color-container p{
+        margin-left: -5px;
+    }
+
     
 }
 
@@ -329,5 +405,16 @@
     }
     .modal-window-with-date .category-container p {
         margin-left: -10px;
+    }
+    
+    .modal-window-with-date .color-container p{
+        margin-left: -5px;
+    }
+
+    .modal-window-with-date .color-container .color-content {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        row-gap: 10px;
+        justify-content: center;
     }
 }

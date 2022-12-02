@@ -234,7 +234,7 @@ export default class PostService {
         
         return response;
     }
-    static async createEvent(token, calendarID, title, description, date, type, duration, category, subscribers){
+    static async createEvent(token, calendarID, title, description, date, type, duration, category, subscribers, color){
 
         if(type === 'arrangement'){
             const response = await axios.post(
@@ -245,7 +245,8 @@ export default class PostService {
                     type: type, 
                     category: category,
                     duration: +duration * 3600, utc: -1 * (new Date().getTimezoneOffset() / 60),
-                    subscribers: subscribers
+                    subscribers: subscribers,
+                    color: color
                 },
                 {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}}
             );
@@ -259,7 +260,8 @@ export default class PostService {
                     description: description, 
                     executionDate: date, 
                     type: type, utc: -1 * (new Date().getTimezoneOffset() / 60),
-                    category: category
+                    category: category,
+                    color: color
                 },
                 {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}}
             );
@@ -267,7 +269,7 @@ export default class PostService {
         }
         
     }
-    static async changeEvent(token, calendarID, eventID, title, description, date, type, duration, category, subscribers){
+    static async changeEvent(token, calendarID, eventID, title, description, date, type, duration, category, subscribers, color){
 
         if(type === 'arrangement'){
             const response = await axios.patch(
@@ -279,7 +281,8 @@ export default class PostService {
                     type: type, 
                     duration: +duration * 3600, utc: -1 * (new Date().getTimezoneOffset() / 60),
                     category: category,
-                    subscribers: subscribers
+                    subscribers: subscribers,
+                    color: color
                 },
                 {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});   
             return response;
@@ -293,7 +296,8 @@ export default class PostService {
                     executionDate: date, 
                     type: type, 
                     utc: -1 * (new Date().getTimezoneOffset() / 60),
-                    category: category
+                    category: category,
+                    color: color
                 },
                 {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});  
             return response;

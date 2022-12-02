@@ -26,14 +26,14 @@ const Event = (props) => {
     const router = useNavigate();   
     const [users, setUsers] = useState([]);
     const [dataInputed, setDataInputed] = useState({id: +window.location.pathname.slice(window.location.pathname.indexOf('events/') + 7), title: '', description: '', hours:new Date().getHours(), minutes: new Date().getMinutes(), year:'', month:'', day:'', type:'reminder', duration: '', users: [], category: 'work'});
-    const [events, setEvents] = useState({id: null, title: '', description: '', date: new Date(), type: '', duration:null, category: 'work', author: ''}); 
+    const [events, setEvents] = useState({id: null, title: '', description: '', date: new Date(), type: '', duration:null, category: 'work', author: '', color: ''}); 
     const [modalActive, setModalActive] = useState(false);
     const [role, setRole] = useState('admin');
     const [isOwner, setIsOwner] = useState(false);
     const [deleteProfile, setDeleteProfile] = useState(false);
     const changePost = (e) =>{
         e.stopPropagation();
-        setDataInputed({...dataInputed, id: events.id, title: events.title, description: events.description, hours: events.date.getHours().toString(), minutes: events.date.getMinutes().toString(), type: events.type, duration:events.duration.toString(), users: [{id: 21, login: 'dimars'}, {id: 41, login: 'mukger'}], category: events.category});
+        setDataInputed({...dataInputed, id: events.id, title: events.title, description: events.description, hours: events.date.getHours().toString(), minutes: events.date.getMinutes().toString(), type: events.type, duration:events.duration.toString(), users: [{id: 0, login: ''}], category: events.category, color: events.color});
         setModalActive(3);
     }
     const [fetchGetRole, isGetRole, getRoleError] = useFetching(async () => {
@@ -59,7 +59,7 @@ const Event = (props) => {
         );
 
         let updatedDate = new Date(response.data[0].execution_date);
-        setEvents({id: response.data[0].id, title: response.data[0].title, description: response.data[0].description, date: updatedDate,  type: response.data[0].type, duration: Math.ceil((response.data[0].duration / 3600) * 100) / 100, category: response.data[0].category, author: response.data[0].login});
+        setEvents({id: response.data[0].id, title: response.data[0].title, description: response.data[0].description, date: updatedDate,  type: response.data[0].type, duration: Math.ceil((response.data[0].duration / 3600) * 100) / 100, category: response.data[0].category, author: response.data[0].login, color: response.data[0].color});
         dispatch(addDateAction(updatedDate.getTime()));
         dispatch(addActiveAction(updatedDate));
     })
@@ -79,7 +79,8 @@ const Event = (props) => {
             dataInputed.type, 
             dataInputed.duration,
             dataInputed.category,
-            dataInputed.users.join(',')
+            dataInputed.users.join(','),
+            dataInputed.color
         );
         fetchEvent();
         fetchGetSubscribedUser();
@@ -157,7 +158,7 @@ const Event = (props) => {
     else{
         return (
             <div className="event-container">
-                <div className={"one-event-small one-type-" + events.type}>
+                <div className={"one-event-small one-type-" + events.color}>
                     
                     <p className="title">{events.title}</p>
                     <div className="category">

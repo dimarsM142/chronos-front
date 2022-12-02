@@ -10,43 +10,76 @@
     
 }
 
-.type-arrangement {
-    background-color: rgb(79, 79, 160);
-    color: rgb(235, 235, 235);
+.type-red {
+    background-color: rgb(163, 0, 0);
+    color: rgb(248, 248, 248);
     transition: 0.4s;
     cursor: pointer;
 }
 
-.type-arrangement:hover {
-    background-color: rgb(115, 0, 182);
+.type-red:hover {
+    background-color: rgb(206, 0, 0);
+    color: rgb(235, 235, 235);
+}
+.type-orange {
+    background-color: rgb(202, 108, 0);
+    color: white;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.type-orange:hover {
+    background-color: rgb(236, 126, 0);
     color: white;
 }
 
-.type-task {
-    background-color: rgb(76, 165, 110);
-    color: rgb(255, 255, 255);
+.type-green {
+    background-color: rgb(63, 141, 0);
+    color: white;
     transition: 0.4s;
     cursor: pointer;
 }
 
-.type-task:hover {
-    background-color: rgb(14, 122, 0);
+.type-green:hover {
+    background-color: rgb(80, 177, 0);
+    color: white;
 }
 
-.type-reminder {
+.type-purple {
     background-color: rgb(139, 48, 132);
     color: rgb(236, 236, 236);
     transition: 0.4s;
     cursor: pointer;
 }
 
-.type-reminder:hover {
+.type-purple:hover {
     background-color: rgb(103, 0, 134);
     color: white;
 }
 
+.type-darkblue {
+    background-color: rgb(0, 66, 141);
+    color: white;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.type-darkblue:hover {
+    background-color: rgb(0, 84, 180);
+    color: white;
+}
+.type-blue {
+    background-color: rgb(0, 152, 199);
+    color: white;
+    transition: 0.4s;
+    cursor: pointer;
+}
+.type-blue:hover {
+    background-color: rgb(0, 189, 180);
+}
+
 .type-holiday {
-    background-color: rgb(0, 179, 192);
+    background-color: rgb(212, 0, 184);
     color: white;
 }
 

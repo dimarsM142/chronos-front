@@ -22,7 +22,7 @@ const OneEvent = (props) => {
     
     const changePost = (e) =>{
         e.stopPropagation();
-        props.setDataInputed({...props.dataInputed, id: props.event.id, title: props.event.title, description: props.event.description, hours: props.event.date.getHours().toString(), minutes: props.event.date.getMinutes().toString(), type: props.event.type, duration:props.event.duration.toString(), users: [{id: 21, login: 'dimars'}], category: props.event.category});
+        props.setDataInputed({...props.dataInputed, id: props.event.id, title: props.event.title, description: props.event.description, hours: props.event.date.getHours().toString(), minutes: props.event.date.getMinutes().toString(), type: props.event.type, duration:props.event.duration.toString(), users: [{id: 21, login: 'dimars'}], category: props.event.category, color: props.event.color});
         props.setModalActive(3);
     }
     const [fetchDeleteEvent, isDeleteEventLoading, deleteEventError] = useFetching(async () => {
@@ -43,7 +43,7 @@ const OneEvent = (props) => {
     },[deleteEventError]);
 
     return (
-        <div className={"one-event type-" + props.event.type} onClick={()=>{props.typeCalendar === 'ordinary' && router(`/calendars/${window.location.pathname.slice(window.location.pathname.indexOf('calendars/') + 10)}/events/${props.event.id}`)}}>
+        <div className={"one-event type-" + props.event.color} onClick={()=>{props.typeCalendar === 'ordinary' && router(`/calendars/${window.location.pathname.slice(window.location.pathname.indexOf('calendars/') + 10)}/events/${props.event.id}`)}}>
             <p className="title">{props.event.title}</p>
             <p className="type">{getNameEvent(props.event.type)}</p>
             {props.isSmall 
