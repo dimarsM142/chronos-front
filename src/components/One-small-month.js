@@ -75,7 +75,7 @@ const OneSmallMonth = (props) => {
                                                 <p>{day}</p>
                                             </td>   
                                             :
-                                            (selectedDate.getFullYear().toString() + props.month + day) === (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate()) 
+                                            (selectedDate.getFullYear().toString() + props.month + (day.toString().length === 1 ? '0' + day : day)) === (new Date().getFullYear().toString() + new Date().getMonth() + (new Date().getDate().toString().length === 1 ? '0' + new Date().getDate() : new Date().getDate())) 
                                                 ? 
                                                 <td key={index} className='fill-cell today' onClick={setDate}>
                                                     <p>{day}</p>

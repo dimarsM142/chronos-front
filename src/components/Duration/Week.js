@@ -411,10 +411,10 @@ const Week = (props) => {
                                                 {week.map((time, index) =>
                                                     
                                                     
-                                                    (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + curWeek[index] + time) === 
-                                                    (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) ||  
-                                                    (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + curWeek[index] + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))) === 
-                                                    (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) 
+                                                    (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + (curWeek[index].toString().length === 1 ? '0' + curWeek[index] : curWeek[index]) + time) === 
+                                                    (new Date().getFullYear().toString() + new Date().getMonth() + (new Date().getDate().toString().length === 1 ? '0' + new Date().getDate() : new Date().getDate()) + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) ||  
+                                                    (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + (curWeek[index].toString().length === 1 ? '0' + curWeek[index] : curWeek[index]) + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))) === 
+                                                    (new Date().getFullYear().toString() + new Date().getMonth() + (new Date().getDate().toString().length === 1 ? '0' + new Date().getDate() : new Date().getDate()) + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) 
                                                         ?
                                                         activeDate !== null && curWeek[index] && 
                                                         ((curWeek[index].toString() + time === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours() : activeDate.getHours())) || 
@@ -638,15 +638,17 @@ const Week = (props) => {
                                             <tr className="row-calendar" key={indexOfArr}>
                                                 {week.map((time, index) =>
                                                     
-                                                    
-                                                    (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + curWeek[index] + time) === 
-                                                    (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) ||  
-                                                    (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + curWeek[index] + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))) === 
-                                                    (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) 
+                                                    activeDate !== null && curWeek[index] && 
+                                                    ((getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + (curWeek[index].toString().length === 1 ? '0' + curWeek[index] : curWeek[index]) + time) === 
+                                                    (new Date().getFullYear().toString() + new Date().getMonth() + (new Date().getDate().toString().length === 1 ? '0' + new Date().getDate() : new Date().getDate()) + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) ||  
+                                                    (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + (curWeek[index].toString().length === 1 ? '0' + curWeek[index] : curWeek[index]) + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))) === 
+                                                    (new Date().getFullYear().toString() + new Date().getMonth() + (new Date().getDate().toString().length === 1 ? '0' + new Date().getDate() : new Date().getDate()) + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())))
                                                         ?
     
                                                        
-                                                        activeDate !== null && curWeek[index] && (curWeek[index].toString() + time === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours(): activeDate.getHours()))
+                                                        activeDate !== null && curWeek[index] && 
+                                                        ((curWeek[index].toString() + time === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours() : activeDate.getHours())) || 
+                                                        (curWeek[index].toString() + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1)) === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours() : activeDate.getHours())))
                                                             ?
                                                             <td key={index} className={curWeek[index] && (dateEvents.includes(curWeek[index].toString() + time) || dateEvents.includes(curWeek[index].toString() + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1)))) ? 'fill-cell active today event' : 'fill-cell active today' } onClick={(e) => {activeDay(e ,week[0], index)}}> 
                                                                     <i className="fa fa-check" aria-hidden="true"></i>
@@ -659,7 +661,9 @@ const Week = (props) => {
                                                         :
     
                                                         
-                                                        activeDate !== null && curWeek[index] && (curWeek[index].toString() + time === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours(): activeDate.getHours()))      
+                                                        activeDate !== null && curWeek[index] && 
+                                                        ((curWeek[index].toString() + time === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours() : activeDate.getHours())) || 
+                                                        (curWeek[index].toString() + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1)) === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours() : activeDate.getHours())))
                                                             ?
                                                             <td key={index} className={curWeek[index] && (dateEvents.includes(curWeek[index].toString() + time) || dateEvents.includes(curWeek[index].toString() + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))))  ? 'fill-cell active event':  'fill-cell active'} onClick={(e) => {activeDay(e, week[0], index)}}>
     

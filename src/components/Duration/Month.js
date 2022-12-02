@@ -343,7 +343,7 @@ const Month = (props) => {
                                                             <p>{day}</p>
                                                         </td>   
                                                         :
-                                                        (selectedDate.getFullYear().toString() + selectedDate.getMonth() + day) === (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate()) 
+                                                        (selectedDate.getFullYear().toString() + selectedDate.getMonth() + (day.toString().length === 1 ? '0' + day : day)) === (new Date().getFullYear().toString() + new Date().getMonth() + (new Date().getDate().toString().length === 1 ? '0' + new Date().getDate() : new Date().getDate())) 
                                                             ? 
                                                             activeDate && day === activeDate.getDate() 
                                                                 ?
@@ -546,7 +546,7 @@ const Month = (props) => {
                                                             <p>{day}</p>
                                                         </td>   
                                                         :
-                                                        (selectedDate.getFullYear().toString() + selectedDate.getMonth() + day) === (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate()) 
+                                                        (selectedDate.getFullYear().toString() + selectedDate.getMonth() + (day.toString().length === 1 ? '0' + day : day)) === (new Date().getFullYear().toString() + new Date().getMonth() + (new Date().getDate().toString().length === 1 ? '0' + new Date().getDate() : new Date().getDate())) 
                                                             ? 
                                                             activeDate && day === activeDate.getDate() 
                                                                 ?
