@@ -193,7 +193,7 @@ const CreateEvent = (props) => {
             
         }
     },[getSubscribeUserError, getSubscribeUserToEventError])
-    console.log(props.dataInputed);
+
     return(
         <Modal modalActive={props.modalActive} setModalActive={props.setModalActive}>
             {isGetUserSubscribe

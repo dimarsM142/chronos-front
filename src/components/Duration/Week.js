@@ -229,6 +229,7 @@ const Week = (props) => {
     }   
 
     const activeDay = (e, hour, indexOfDay) =>{        
+
         let updatedDate;
         if(curWeek[indexOfDay] - selectedDate.getDate() > 7){
             updatedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth() - 1, curWeek[indexOfDay], hour, +new Date().getMinutes(), +new Date().getSeconds());
@@ -415,7 +416,9 @@ const Week = (props) => {
                                                     (getCurrentDate(selectedDate, index, curWeek).getFullYear().toString() + getCurrentDate(selectedDate, index, curWeek).getMonth() + curWeek[index] + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))) === 
                                                     (new Date().getFullYear().toString() + new Date().getMonth() + new Date().getDate() + (new Date().getHours().toString().length === 1 ? '0' + new Date().getHours():new Date().getHours())) 
                                                         ?
-                                                        activeDate !== null && curWeek[index] && (curWeek[index].toString() + time === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours(): activeDate.getHours()))
+                                                        activeDate !== null && curWeek[index] && 
+                                                        ((curWeek[index].toString() + time === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours() : activeDate.getHours())) || 
+                                                        (curWeek[index].toString() + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1)) === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours() : activeDate.getHours())))
                                                             ?
                                                             <td key={index} className={curWeek[index] && (dateEvents.includes(curWeek[index].toString() + time) || dateEvents.includes(curWeek[index].toString() + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1)))) ? 'fill-cell active today event' : 'fill-cell active today' } onClick={(e) => {activeDay(e ,week[0], index)}}> 
                                                                     <i className="fa fa-check" aria-hidden="true"></i>
@@ -426,7 +429,9 @@ const Week = (props) => {
                                                                 <i className="fa fa-check" aria-hidden="true"></i>
                                                             </td>
                                                         :
-                                                        activeDate !== null && curWeek[index] && (curWeek[index].toString() + time === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours(): activeDate.getHours()))      
+                                                        activeDate !== null && curWeek[index] && 
+                                                        ((curWeek[index].toString() + time === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours() : activeDate.getHours())) || 
+                                                        (curWeek[index].toString() + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1)) === activeDate.getDate().toString() + (activeDate.getHours().toString().length === 1 ? '0' + activeDate.getHours() : activeDate.getHours())))
                                                             ?
                                                             <td key={index} className={curWeek[index] && (dateEvents.includes(curWeek[index].toString() + time) || dateEvents.includes(curWeek[index].toString() + ((+time + 1).toString().length === 1 ? '0' + (+time + 1) : (+time + 1))))  ? 'fill-cell active event':  'fill-cell active'} onClick={(e) => {activeDay(e, week[0], index)}}>
     

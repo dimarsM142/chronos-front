@@ -100,7 +100,6 @@ const Event = (props) => {
                 window.location.pathname.slice(+window.location.pathname.indexOf('calendars/') + 10, window.location.pathname.indexOf('/events')),
                 events.id
             );
-            console.log(res);
             setUsers(res.data);
         }
         else if(events.type == 'reminder' || events.type == 'task'){
