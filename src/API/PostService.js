@@ -4,7 +4,7 @@ export default class PostService {
     static async login(login, password){
         let obj = {login:login, psw:password};
         
-        const response = await axios.post('https://chron0s-backend.herokuapp.com/api/auth/login',
+        const response = await axios.post('https://chronos-backend.herokuapp.com/api/auth/login',
         obj, 
         {'headers': {'Content-Type':'application/json', 'Accept':'application/json'}});
         return response;
@@ -12,14 +12,14 @@ export default class PostService {
     static async register(login, password, email, fullName){
         let obj = {login:login, psw:password, repeatpsw: password, email:email, fname:fullName};
         
-        const response = await axios.post('https://chron0s-backend.herokuapp.com/api/auth/register',
+        const response = await axios.post('https://chronos-backend.herokuapp.com/api/auth/register',
         obj, 
         {'headers': {'Content-Type':'application/json', 'Accept':'application/json'}});
         return response;
     }
     static async forgotPassword(login){
         const response = await axios.post(
-            'https://chron0s-backend.herokuapp.com/api/auth/password-reset',
+            'https://chronos-backend.herokuapp.com/api/auth/password-reset',
             {login: login}, 
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json'}});
         return response;
@@ -27,7 +27,7 @@ export default class PostService {
 
     static async resetPassword(password, token, login){
         const response = await axios.post(
-            `https://chron0s-backend.herokuapp.com/api/auth/password-reset/${token}`,
+            `https://chronos-backend.herokuapp.com/api/auth/password-reset/${token}`,
             {newpsw: password, repeatnewpsw: password, login: login},
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json'}});
         return response;
@@ -35,7 +35,7 @@ export default class PostService {
 
     static async refreshToken(token){
         const response = await axios.post(
-            `https://chron0s-backend.herokuapp.com/api/refresh-tokens`,
+            `https://chronos-backend.herokuapp.com/api/refresh-tokens`,
             {refreshToken: token},
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json'}});
         return response;
@@ -44,14 +44,14 @@ export default class PostService {
     static async getUserInfo(token){
         
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/me`,
+            `https://chronos-backend.herokuapp.com/api/me`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
     }
     static async getUserAvatar(token){
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/me/avatar`,
+            `https://chronos-backend.herokuapp.com/api/me/avatar`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
@@ -59,7 +59,7 @@ export default class PostService {
     static async changeUserInfo(token, info){
         let obj = {login:info.login, email:info.email, fname:info.full_name};
         const response = await axios.patch(
-            `https://chron0s-backend.herokuapp.com/api/me`,
+            `https://chronos-backend.herokuapp.com/api/me`,
             obj,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
@@ -67,7 +67,7 @@ export default class PostService {
     }
     static async deleteUserInfo(token){
         const response = await axios.delete(
-            `https://chron0s-backend.herokuapp.com/api/me`,
+            `https://chronos-backend.herokuapp.com/api/me`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
@@ -77,7 +77,7 @@ export default class PostService {
         formData.append('file', selectedFile);
         
         const response = await axios.patch(
-            `https://chron0s-backend.herokuapp.com/api/me/avatar`,
+            `https://chronos-backend.herokuapp.com/api/me/avatar`,
             formData,
             {'headers': {'Content-Type':'multipart/form-data', 'Accept':'application/json', 'Authorization': token}});
         
@@ -160,14 +160,14 @@ export default class PostService {
     }*/
     static async getCalendarsOwn(token){
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/calendars/own`,
+            `https://chronos-backend.herokuapp.com/api/calendars/own`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
     }
     static async getCalendarsSubscribed(token){
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/calendars/subsTo`,
+            `https://chronos-backend.herokuapp.com/api/calendars/subsTo`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
@@ -175,7 +175,7 @@ export default class PostService {
     
     static async createCalendar(token, title, desc){
         const response = await axios.post(
-            `https://chron0s-backend.herokuapp.com/api/calendars`,
+            `https://chronos-backend.herokuapp.com/api/calendars`,
             {title: title, description: desc},
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
@@ -183,7 +183,7 @@ export default class PostService {
     }
     static async changeCalendar(token, id, title, desc){
         const response = await axios.patch(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${id}`,
+            `https://chronos-backend.herokuapp.com/api/calendars/${id}`,
             {title: title, description: desc},
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
@@ -191,7 +191,7 @@ export default class PostService {
     }
     static async deleteCalendar(token, id){
         const response = await axios.delete(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${id}`,
+            `https://chronos-backend.herokuapp.com/api/calendars/${id}`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
@@ -200,7 +200,7 @@ export default class PostService {
 
     static async getEventsByMonth(token, calendarID, year, month, category){
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events?month=${year}-${month}&category=${category}&utc=${(new Date().getTimezoneOffset() / 60)}`,
+            `https://chronos-backend.herokuapp.com/api/calendars/${calendarID}/events?month=${year}-${month}&category=${category}&utc=${(new Date().getTimezoneOffset() / 60)}`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
@@ -208,28 +208,28 @@ export default class PostService {
     static async getEventsByWeek(token, calendarID, year, month, day, category){
 
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events?week=${year}-${month}-${day}&category=${category}&utc=${(new Date().getTimezoneOffset() / 60)}`,
+            `https://chronos-backend.herokuapp.com/api/calendars/${calendarID}/events?week=${year}-${month}-${day}&category=${category}&utc=${(new Date().getTimezoneOffset() / 60)}`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
     }
     static async getEventsByName(token, calendarID, text, category){
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events?search=${text}&category=${category}`,
+            `https://chronos-backend.herokuapp.com/api/calendars/${calendarID}/events?search=${text}&category=${category}`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
     }
     static async getEvent(token, eventID){
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/events/${eventID}`,
+            `https://chronos-backend.herokuapp.com/api/events/${eventID}`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
     }
     static async getEventAuthor(token, eventID){
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/events/${eventID}/author`,
+            `https://chronos-backend.herokuapp.com/api/events/${eventID}/author`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
@@ -238,7 +238,7 @@ export default class PostService {
 
         if(type === 'arrangement'){
             const response = await axios.post(
-                `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events`,
+                `https://chronos-backend.herokuapp.com/api/calendars/${calendarID}/events`,
                 {   title: title, 
                     description: description, 
                     executionDate: date, 
@@ -254,7 +254,7 @@ export default class PostService {
         }
         else{
             const response = await axios.post(
-                `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events`,
+                `https://chronos-backend.herokuapp.com/api/calendars/${calendarID}/events`,
                 {
                     title: title, 
                     description: description, 
@@ -273,7 +273,7 @@ export default class PostService {
 
         if(type === 'arrangement'){
             const response = await axios.patch(
-                `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events/${eventID}`,
+                `https://chronos-backend.herokuapp.com/api/calendars/${calendarID}/events/${eventID}`,
                 {
                     title: title, 
                     description: description, 
@@ -289,7 +289,7 @@ export default class PostService {
         }
         else{
             const response = await axios.patch(
-                `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events/${eventID}`,
+                `https://chronos-backend.herokuapp.com/api/calendars/${calendarID}/events/${eventID}`,
                 {
                     title: title, 
                     description: description, 
@@ -305,7 +305,7 @@ export default class PostService {
     }
     static async deleteEvent(token, calendarID, eventID){
         const response = await axios.delete(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${calendarID}/events/${eventID}`,
+            `https://chronos-backend.herokuapp.com/api/calendars/${calendarID}/events/${eventID}`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
@@ -317,7 +317,7 @@ export default class PostService {
     static async getAllUsersSubsedToCalendar(token, id){
 
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${id}/subscribe`,
+            `https://chronos-backend.herokuapp.com/api/calendars/${id}/subscribe`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
@@ -325,7 +325,7 @@ export default class PostService {
     static async getAllUsersToCalendar(token, id){
 
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${id}/allUsers`,
+            `https://chronos-backend.herokuapp.com/api/calendars/${id}/allUsers`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
@@ -333,7 +333,7 @@ export default class PostService {
     static async getAllUsersInvitedToEvent(token, calendarID, eventID){
 
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/events/${calendarID}/events/${eventID}`,
+            `https://chronos-backend.herokuapp.com/api/events/${calendarID}/events/${eventID}`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}});
         
         return response;
@@ -341,7 +341,7 @@ export default class PostService {
 
     static async subscribeUserToCalendar(token, id, userLogin, userRole){
         const response = await axios.post(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${id}/subscribe`,
+            `https://chronos-backend.herokuapp.com/api/calendars/${id}/subscribe`,
             {userLogin: userLogin, role: userRole},
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}}
         );
@@ -351,7 +351,7 @@ export default class PostService {
 
     static async unsubscribeUserFromCalendar(token, id, userId){
         const response = await axios.delete(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${id}/subscribe/${userId}`,
+            `https://chronos-backend.herokuapp.com/api/calendars/${id}/subscribe/${userId}`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}}
         );
         return response;
@@ -360,7 +360,7 @@ export default class PostService {
 
     static async changeSubscribedUserRole(token, id, userId, userRole){
         const response = await axios.patch(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${id}/subscribe/${userId}`,
+            `https://chronos-backend.herokuapp.com/api/calendars/${id}/subscribe/${userId}`,
             {role: userRole},
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}}
         );
@@ -369,7 +369,7 @@ export default class PostService {
 
     static async getUserRole(token, id){
         const response = await axios.get(
-            `https://chron0s-backend.herokuapp.com/api/calendars/${id}/role`,
+            `https://chronos-backend.herokuapp.com/api/calendars/${id}/role`,
             {'headers': {'Content-Type':'application/json', 'Accept':'application/json', 'Authorization': token}}
         );
         return response;
