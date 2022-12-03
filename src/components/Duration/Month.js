@@ -80,6 +80,7 @@ const Month = (props) => {
                 (selectedDate.getMonth() + 1).toString().length === 1 ? '0' + (selectedDate.getMonth() + 1): selectedDate.getMonth() + 1,
                 category
             );
+            console.log(response);
             let arr = [];
             let arrOfDates = [];
             for(let i = 0; i < response.data.length; i++){
