@@ -45,7 +45,7 @@ const OneEvent = (props) => {
     return (
         <div className={props.event.type === 'holiday' ? 'one-event type-holiday' : "one-event type-" + props.event.color} 
             onClick={()=>{
-                if(props.typeCalendar === 'ordinary' && props.role === 'admin') 
+                if(props.typeCalendar === 'ordinary') 
                     router(`/calendars/${window.location.pathname.slice(window.location.pathname.indexOf('calendars/') + 10)}/events/${props.event.id}`)
             }}
             >

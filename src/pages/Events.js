@@ -57,7 +57,6 @@ const Event = (props) => {
             localStorage.getItem('access'), 
             +window.location.pathname.slice(window.location.pathname.indexOf('events/') + 7)
         );
-
         let updatedDate = new Date(response.data[0].execution_date);
         setEvents({id: response.data[0].id, title: response.data[0].title, description: response.data[0].description, date: updatedDate,  type: response.data[0].type, duration: Math.ceil((response.data[0].duration / 3600) * 100) / 100, category: response.data[0].category, author: response.data[0].login, color: response.data[0].color});
         dispatch(addDateAction(updatedDate.getTime()));
@@ -107,6 +106,7 @@ const Event = (props) => {
                 localStorage.getItem('access'), 
                 window.location.pathname.slice(+window.location.pathname.indexOf('calendars/') + 10, window.location.pathname.indexOf('/events'))
             );
+            console.log(res);
             setUsers(res.data);
         }   
         
