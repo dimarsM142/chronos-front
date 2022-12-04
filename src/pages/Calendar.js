@@ -42,7 +42,7 @@ const Calendar = (props) => {
             );
         let arr = [];
         for(let i = 0; i < response.data.length; i++){
-            arr[i] = {id: response.data[i].id, title: response.data[i].title, description: response.data[i].description, date: new Date(response.data[i].execution_date),  type: response.data[i].type,  duration:  Math.ceil((response.data[i].duration / 3600) * 100) / 100};
+            arr[i] = {id: response.data[i].id, title: response.data[i].title, description: response.data[i].description, date: new Date(response.data[i].execution_date),  type: response.data[i].type,  duration:  Math.ceil((response.data[i].duration / 3600) * 100) / 100, category: response.data[i].category, login: response.data[i].login, color: response.data[i].color};
         }
         setEvents(arr);
     })
