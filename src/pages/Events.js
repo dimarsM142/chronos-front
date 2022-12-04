@@ -191,7 +191,7 @@ const Event = (props) => {
                     }
                     <div className="users-container">
                         
-                        {users.length === 0
+                        {users.filter(user => user.login !== events.author).length === 0
                             ?
                             <p className="no-users">There are no subscribers :(</p>
                             :
